@@ -23,6 +23,9 @@ data-platform-api-product-master-creates-rmq-kube には、次の API をコー�
 * A_GeneralPDF（データ連携基盤 品目マスタ - 基本PDFデータ）
 * A_BusinessPartner（データ連携基盤 品目マスタ - ビジネスパートナデータ）
 * A_ProductDescriptionByBusinessPartner（データ連携基盤 品目マスタ - ビジネスパートナ品目テキストデータ）
+* A_Allergen（データ連携基盤 品目マスタ - アレルゲンデータ）
+* A_NutritionalInfo（データ連携基盤 品目マスタ - 栄養成分データ）
+* A_Calories（データ連携基盤 品目マスタ - 熱量データ）
 * A_BPPlant（データ連携基盤 品目マスタ - ビジネスパートナプラントデータ）
 * A_BPPlantPDF（データ連携基盤 品目マスタ - ビジネスパートナプラントPDFデータ）
 * A_StorageLocation （データ連携基盤 品目マスタ - 保管場所データ）

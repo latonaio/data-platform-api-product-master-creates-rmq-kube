@@ -19,9 +19,9 @@
 		"ProductStandardID": "",
 		"IndustryStandardName": "",
 		"ItemCategory": "",
-		"BarcodeType": "",
 		"CountryOfOrigin": "",
 		"CountryOfOriginLanguage": "",
+		"BarcodeType": "",
 		"ProductAccountAssignmentGroup": "",
 		"CreationDate": "",
 		"LastChangeDate": "",
@@ -30,7 +30,22 @@
 			"BusinessPartner": null,
 			"ValidityEndDate": "",
 			"ValidityStartDate": "",
+			"BusinessPartnerProduct": "",
 			"IsMarkedForDeletion": null,
+            "Allergen": {
+                "Allergen": "",
+                "AllergenIsContained": ""
+            },
+            "NutritionalInfo": {
+                "Nutrient": "",
+                "NutrientContent": "",
+                "NutrientContentUnit": ""
+            },
+            "Calories": {
+                "CaloryUnitQuantitiy": "",
+                "Calories": "",
+                "CaloryUnit": ""
+            },
 			"BPPlant": {
 				"Plant": "",
 				"AvailabilityCheckType": "",
@@ -123,6 +138,5 @@
 	"accepter": [
 		"General"
 	],
-	"product_id": "",
 	"deleted": false
 }

@@ -8,13 +8,15 @@ func ConvertToGeneralUpdates(general dpfm_api_input_reader.General) *GeneralUpda
 	return &GeneralUpdates{
 		BaseUnit:                      data.BaseUnit,
 		ValidityStartDate:             data.ValidityStartDate,
-		Division:                      data.Division,
 		GrossWeight:                   data.GrossWeight,
-		WeightUnit:                    data.WeightUnit,
-		SizeOrDimensionText:           data.SizeOrDimensionText,
-		IndustryStandardName:          data.IndustryStandardName,
-		ProductStandardID:             data.ProductStandardID,
 		NetWeight:                     data.NetWeight,
+		WeightUnit:                    data.WeightUnit,
+		InternalCapacityQuantity:      data.InternalCapacityQuantity,
+		InternalCapacityQuantityUnit:  data.InternalCapacityQuantityUnit,
+		SizeOrDimensionText:           data.SizeOrDimensionText,
+		ProductStandardID:             data.ProductStandardID,
+		IndustryStandardName:          data.IndustryStandardName,
+		BarcodeType:                   data.BarcodeType,
 		CountryOfOrigin:               data.CountryOfOrigin,
 		CountryOfOriginLanguage:       data.CountryOfOriginLanguage,
 		ProductAccountAssignmentGroup: data.ProductAccountAssignmentGroup,
@@ -22,7 +24,7 @@ func ConvertToGeneralUpdates(general dpfm_api_input_reader.General) *GeneralUpda
 	}
 }
 
-func ConvertToBusinessPartnerUpdates(businessPartnerUpdates BusinessPartnerUpdates) *BusinessPartnerUpdates {
+func ConvertToBusinessPartnerUpdates(businessPartnerUpdates dpfm_api_input_reader.BusinessPartner) *BusinessPartnerUpdates {
 	data := businessPartnerUpdates
 
 	return &BusinessPartnerUpdates{
@@ -31,7 +33,36 @@ func ConvertToBusinessPartnerUpdates(businessPartnerUpdates BusinessPartnerUpdat
 	}
 }
 
-func ConvertToBPPlantUpdates(bpPlantUpdates BPPlantUpdates) *BPPlantUpdates {
+func ConvertToAllergenUpdates(allergenUpdates dpfm_api_input_reader.Allergen) *AllergenUpdates {
+	data := allergenUpdates
+
+	return &AllergenUpdates{
+		Allergen:            data.Allergen,
+		AllergenIsContained: data.AllergenIsContained,
+	}
+}
+
+func ConvertToNutritionalInfoUpdates(nutritionalInfoUpdates dpfm_api_input_reader.NutritionalInfo) *NutritionalInfoUpdates {
+	data := nutritionalInfoUpdates
+
+	return &NutritionalInfoUpdates{
+		Nutrient:            data.Nutrient,
+		NutrientContent:     data.NutrientContent,
+		NutrientContentUnit: data.NutrientContentUnit,
+	}
+}
+
+func ConvertToCaloriesUpdates(caloriesUpdates dpfm_api_input_reader.Calories) *CaloriesUpdates {
+	data := caloriesUpdates
+
+	return &CaloriesUpdates{
+		CaloryUnitQuantity: data.CaloryUnitQuantity,
+		Calories:           data.Calories,
+		CaloryUnit:         data.CaloryUnit,
+	}
+}
+
+func ConvertToBPPlantUpdates(bpPlantUpdates dpfm_api_input_reader.BPPlant) *BPPlantUpdates {
 	data := bpPlantUpdates
 
 	return &BPPlantUpdates{
@@ -40,12 +71,13 @@ func ConvertToBPPlantUpdates(bpPlantUpdates BPPlantUpdates) *BPPlantUpdates {
 		MRPController:                             data.MRPController,
 		ReorderThresholdQuantity:                  data.ReorderThresholdQuantity,
 		PlanningTimeFence:                         data.PlanningTimeFence,
-		MRPPlanningCalender:                       data.MRPPlanningCalender,
+		MRPPlanningCalendar:                       data.MRPPlanningCalendar,
 		SafetyStockQuantityInBaseUnit:             data.SafetyStockQuantityInBaseUnit,
 		SafetyDuration:                            data.SafetyDuration,
 		MaximumStockQuantityInBaseUnit:            data.MaximumStockQuantityInBaseUnit,
-		MinumumDeliveryQuantityInBaseUnit:         data.MinumumDeliveryQuantityInBaseUnit,
-		MinumumDeliveryLotSizeQuantityInBaseUnit:  data.MinumumDeliveryLotSizeQuantityInBaseUnit,
+		MinimumDeliveryQuantityInBaseUnit:         data.MinimumDeliveryQuantityInBaseUnit,
+		MinimumDeliveryLotSizeQuantityInBaseUnit:  data.MinimumDeliveryLotSizeQuantityInBaseUnit,
+		StandardDeliveryLotSizeQuantityInBaseUnit: data.StandardDeliveryLotSizeQuantityInBaseUnit,
 		DeliveryLotSizeRoundingQuantityInBaseUnit: data.DeliveryLotSizeRoundingQuantityInBaseUnit,
 		MaximumDeliveryLotSizeQuantityInBaseUnit:  data.MaximumDeliveryLotSizeQuantityInBaseUnit,
 		MaximumDeliveryQuantityInBaseUnit:         data.MaximumDeliveryQuantityInBaseUnit,
@@ -58,7 +90,7 @@ func ConvertToBPPlantUpdates(bpPlantUpdates BPPlantUpdates) *BPPlantUpdates {
 	}
 }
 
-func ConvertToStorageLocationUpdates(storageLocationUpdates StorageLocationUpdates) *StorageLocationUpdates {
+func ConvertToStorageLocationUpdates(storageLocationUpdates dpfm_api_input_reader.StorageLocation) *StorageLocationUpdates {
 	data := storageLocationUpdates
 
 	return &StorageLocationUpdates{
@@ -67,7 +99,7 @@ func ConvertToStorageLocationUpdates(storageLocationUpdates StorageLocationUpdat
 	}
 }
 
-func ConvertToMRPAreaUpdates(mRPAreaUpdates MRPAreaUpdates) *MRPAreaUpdates {
+func ConvertToMRPAreaUpdates(mRPAreaUpdates dpfm_api_input_reader.MRPArea) *MRPAreaUpdates {
 	data := mRPAreaUpdates
 
 	return &MRPAreaUpdates{
@@ -92,7 +124,7 @@ func ConvertToMRPAreaUpdates(mRPAreaUpdates MRPAreaUpdates) *MRPAreaUpdates {
 	}
 }
 
-func ConvertToWorkSchedulingUpdates(workSchedulingUpdates WorkSchedulingUpdates) *WorkSchedulingUpdates {
+func ConvertToWorkSchedulingUpdates(workSchedulingUpdates dpfm_api_input_reader.WorkScheduling) *WorkSchedulingUpdates {
 	data := workSchedulingUpdates
 
 	return &WorkSchedulingUpdates{
@@ -101,13 +133,13 @@ func ConvertToWorkSchedulingUpdates(workSchedulingUpdates WorkSchedulingUpdates)
 		ProductionSupervisor:          data.ProductionSupervisor,
 		ProductProductionQuantityUnit: data.ProductProductionQuantityUnit,
 		ProdnOrderIsBatchRequired:     data.ProdnOrderIsBatchRequired,
-		MatlCompIsMarkedForBackflush:  data.MatlCompIsMarkedForBackflush,
+		PDTCompIsMarkedForBackflush:   data.PDTCompIsMarkedForBackflush,
 		ProductionSchedulingProfile:   data.ProductionSchedulingProfile,
 		IsMarkedForDeletion:           data.IsMarkedForDeletion,
 	}
 }
 
-func ConvertToAccountingUpdates(accountingUpdates AccountingUpdates) *AccountingUpdates {
+func ConvertToAccountingUpdates(accountingUpdates dpfm_api_input_reader.Accounting) *AccountingUpdates {
 	data := accountingUpdates
 
 	return &AccountingUpdates{
@@ -121,7 +153,7 @@ func ConvertToAccountingUpdates(accountingUpdates AccountingUpdates) *Accounting
 	}
 }
 
-func ConvertToProductDescriptionUpdates(productDescriptionUpdates ProductDescriptionUpdates) *ProductDescriptionUpdates {
+func ConvertToProductDescriptionUpdates(productDescriptionUpdates dpfm_api_input_reader.ProductDescription) *ProductDescriptionUpdates {
 	data := productDescriptionUpdates
 
 	return &ProductDescriptionUpdates{
@@ -129,7 +161,7 @@ func ConvertToProductDescriptionUpdates(productDescriptionUpdates ProductDescrip
 	}
 }
 
-func ConvertToProductDescByBPUpdates(productDescByBPUpdates ProductDescByBPUpdates) *ProductDescByBPUpdates {
+func ConvertToProductDescByBPUpdates(productDescByBPUpdates dpfm_api_input_reader.ProductDescByBP) *ProductDescByBPUpdates {
 	data := productDescByBPUpdates
 
 	return &ProductDescByBPUpdates{
@@ -138,7 +170,7 @@ func ConvertToProductDescByBPUpdates(productDescByBPUpdates ProductDescByBPUpdat
 	}
 }
 
-func ConvertToTaxUpdates(taxUpdates TaxUpdates) *TaxUpdates {
+func ConvertToTaxUpdates(taxUpdates dpfm_api_input_reader.Tax) *TaxUpdates {
 	data := taxUpdates
 
 	return &TaxUpdates{

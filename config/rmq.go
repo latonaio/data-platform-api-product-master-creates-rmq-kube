@@ -8,18 +8,13 @@ import (
 
 func newRMQ() *RMQ {
 	return &RMQ{
-		user:          os.Getenv("RMQ_USER"),
-		pass:          os.Getenv("RMQ_PASS"),
-		addr:          os.Getenv("RMQ_ADDRESS"),
-		port:          os.Getenv("RMQ_PORT"),
-		vhost:         os.Getenv("RMQ_VHOST"),
-		queueFrom:     os.Getenv("RMQ_QUEUE_FROM"),
-		queueToSQL:    getEnvStrings("RMQ_QUEUE_TO_SQL"),
-		queueToExConf: getEnvStrings("RMQ_QUEUE_TO_EX_CONF"),
-		queueToSubFunc: map[string]string{
-			"Headers": os.Getenv("RMQ_QUEUE_TO_HEADERS_SUB_FUNC"),
-			"Items":   os.Getenv("RMQ_QUEUE_TO_ITEMS_SUB_FUNC"),
-		},
+		user:                os.Getenv("RMQ_USER"),
+		pass:                os.Getenv("RMQ_PASS"),
+		addr:                os.Getenv("RMQ_ADDRESS"),
+		port:                os.Getenv("RMQ_PORT"),
+		vhost:               os.Getenv("RMQ_VHOST"),
+		queueFrom:           os.Getenv("RMQ_QUEUE_FROM"),
+		queueToSQL:          getEnvStrings("RMQ_QUEUE_TO_SQL"),
 		queueToResponse:     os.Getenv("NESTJS_DATA_CONNECTION_REQUEST_CONTROL_MANAGER_CONSUME"),
 		sessionControlQueue: os.Getenv("RMQ_SESSION_CONTROL_QUEUE"),
 	}
@@ -53,12 +48,6 @@ func (c *RMQ) QueueToSQL() []string {
 }
 func (c *RMQ) SessionControlQueue() string {
 	return c.sessionControlQueue
-}
-func (c *RMQ) QueueToSubFunc() map[string]string {
-	return c.queueToSubFunc
-}
-func (c *RMQ) QueueToExConf() []string {
-	return c.queueToExConf
 }
 func (c *RMQ) QueueToResponse() string {
 	return c.queueToResponse

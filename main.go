@@ -1,25 +1,29 @@
 package main
 
 import (
-	"context"
 	dpfm_api_caller "data-platform-api-product-master-creates-rmq-kube/DPFM_API_Caller"
 	dpfm_api_input_reader "data-platform-api-product-master-creates-rmq-kube/DPFM_API_Input_Reader"
 	dpfm_api_output_formatter "data-platform-api-product-master-creates-rmq-kube/DPFM_API_Output_Formatter"
 	"data-platform-api-product-master-creates-rmq-kube/config"
-	"data-platform-api-product-master-creates-rmq-kube/existence_conf"
-	"data-platform-api-product-master-creates-rmq-kube/sub_func_complementer"
 	"encoding/json"
 	"fmt"
 	"time"
 
 	"github.com/latonaio/golang-logging-library-for-data-platform/logger"
+	database "github.com/latonaio/golang-mysql-network-connector"
 	rabbitmq "github.com/latonaio/rabbitmq-golang-client-for-data-platform"
 )
 
 func main() {
-	ctx := context.Background()
 	l := logger.NewLogger()
 	conf := config.NewConf()
+	db, err := database.NewMySQL(conf.DB)
+	if err != nil {
+		l.Error(err)
+		return
+	}
+	defer db.Close()
+
 	rmq, err := rabbitmq.NewRabbitmqClient(conf.RMQ.URL(), conf.RMQ.QueueFrom(), conf.RMQ.SessionControlQueue(), conf.RMQ.QueueToSQL(), 0)
 	if err != nil {
 		l.Fatal(err.Error())
@@ -31,9 +35,7 @@ func main() {
 	}
 	defer rmq.Stop()
 
-	confirmor := existence_conf.NewExistenceConf(ctx, conf, rmq)
-	complementer := sub_func_complementer.NewSubFuncComplementer(ctx, conf, rmq)
-	caller := dpfm_api_caller.NewDPFMAPICaller(conf, rmq, confirmor, complementer)
+	caller := dpfm_api_caller.NewDPFMAPICaller(conf, rmq)
 
 	for msg := range iter {
 		start := time.Now()
@@ -87,11 +89,13 @@ func callProcess(rmq *rabbitmq.RabbitmqClient, caller *dpfm_api_caller.DPFMAPICa
 		output.APIProcessingResult = getBoolPtr(false)
 		output.APIProcessingError = errs[0].Error()
 		output.Message = res
+		output.ConnectionKey = "response"
 		rmq.Send(conf.RMQ.QueueToResponse(), output)
 		return errs[0]
 	}
 	output.APIProcessingResult = getBoolPtr(true)
 	output.Message = res
+	output.ConnectionKey = "response"
 
 	l.JsonParseOut(output)
 	rmq.Send(conf.RMQ.QueueToResponse(), output)
@@ -107,10 +111,7 @@ func getAccepter(input *dpfm_api_input_reader.SDC) []string {
 
 	if accepter[0] == "All" {
 		accepter = []string{
-			"General", "GeneralPDF", "BusinessPartner", "BPPlant",
-			"BPPlantPDF", "StorageLocation", "Procurement", "MRPArea",
-			"WorkScheduling", "Accounting", "Sales", "Tax",
-			"ProductDescription", "ProductDescByBP",
+			"General", "BusinessPartner",
 		}
 	}
 	return accepter
