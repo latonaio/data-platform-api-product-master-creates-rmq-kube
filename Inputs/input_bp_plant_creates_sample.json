@@ -1,0 +1,217 @@
+{
+	"connection_key": "request",
+	"result": true,
+	"redis_key": "abcdefg",
+	"filepath": "/var/lib/aion/Data/rededge_sdc/abcdef.json",
+	"api_status_code": 200,
+	"runtime_session_id": "boi9ar543dg91ipdnspi099u231280ab0v8af0ew",
+	"business_partner": 101,
+	"service_label": "PRODUCT_MASTER",
+	"api_type": "creates",
+	"ProductMaster": {
+		"Product": "X103",
+		"ProductType": "",
+		"BaseUnit": "",
+		"ValidityStartDate": "",
+		"ProductGroup": "",
+		"GrossWeight": null,
+		"NetWeight": null,
+		"WeightUnit": "",
+		"InternalCapacityQuantity": null,
+		"InternalCapacityQuantityUnit": "",
+		"SizeOrDimensionText": "",
+		"ProductStandardID": "",
+		"IndustryStandardName": "",
+		"ItemCategory": "",
+		"CountryOfOrigin": "",
+		"CountryOfOriginLanguage": "",
+		"BarcodeType": "",
+		"ProductAccountAssignmentGroup": "",
+		"CreationDate": "",
+		"LastChangeDate": "",
+		"IsMarkedForDeletion": null,
+		"BusinessPartner": [
+			{
+				"BusinessPartner": 101,
+				"ValidityEndDate": "",
+				"ValidityStartDate": "",
+				"BusinessPartnerProduct": "",
+				"IsMarkedForDeletion": null,
+				"Allergen": [
+					{
+						"Allergen": "",
+						"AllergenIsContained": null,
+						"IsMarkedForDeletion": null
+					}
+				],
+				"Calories": [
+					{
+						"CaloryUnitQuantitiy": null,
+						"Calories": null,
+						"CaloryUnit": ""
+					}
+				],
+				"NutritionalInfo": [
+					{
+						"Nutrient": "",
+						"NutrientContent": null,
+						"NutrientContentUnit": ""
+					}
+				],
+				"ProductDescription": [
+					{
+						"Language": "",
+						"ProductDescription": "",
+						"ProductDescByBP": [
+							{
+								"ProductDescription": ""
+							}
+						]
+					}
+				]
+			}
+		],
+		"BPPlant": [
+			{
+				"BusinessPartner": 101,
+				"Plant": "AB01",
+				"AvailabilityCheckType": "01",
+				"MRPType": "M1",
+				"MRPController": "001",
+				"ReorderThresholdQuantity": 40,
+				"PlanningTimeFence": 3,
+				"MRPPlanningCalendar": "Z0",
+				"SafetyStockQuantityInBaseUnit": null,
+				"SafetyDuration": null,
+				"MaximumStockQuantityInBaseUnit": 100,
+				"MinimumDeliveryQuantityInBaseUnit": 10,
+				"MinimumDeliveryLotSizeQuantityInBaseUnit": 10,
+				"StandardDeliveryLotSizeQuantityInBaseUnit": 10,
+				"DeliveryLotSizeRoundingQuantityInBaseUnit": 10,
+				"MaximumDeliveryLotSizeQuantityInBaseUnit": 30,
+				"MaximumDeliveryQuantityInBaseUnit": 100,
+				"DeliveryLotSizeIsFixed": null,
+				"StandardDeliveryDurationInDays": 4,
+				"IsBatchManagementRequired": true,
+				"BatchManagementPolicy": "0001",
+				"InventoryUnit": "PC",
+				"ProfitCenter": "Z001",
+				"IsMarkedForDeletion": false,
+				"Accounting": [
+					{
+						"ValuationClass": "",
+						"CostingPolicy": "",
+						"PriceUnitQty": "",
+						"StandardPrice": null,
+						"MovingAveragePrice": null,
+						"PriceLastChangeDate": "",
+						"IsMarkedForDeletion": null
+					}
+				],
+				"BPPlantDoc": [
+					{
+						"DocType": "",
+						"DocVersionID": null,
+						"DocID": "",
+						"FileExtension": "",
+						"FileName": "",
+						"FilePath": "",
+						"DocIssuerBusinessPartner": null
+					}
+				],
+				"MRPArea": [
+					{
+						"MRPArea": "",
+						"StorageLocationForMRP": "",
+						"MRPType": "",
+						"MRPController": "",
+						"ReorderThresholdQuantity": null,
+						"PlanningTimeFence": null,
+						"MRPPlanningCalendar": "",
+						"SafetyStockQuantityInBaseUnit": null,
+						"SafetyDuration": null,
+						"MaximumStockQuantityInBaseUnit": null,
+						"MinumumDeliveryQuantityInBaseUnit": null,
+						"MinumumDeliveryLotSizeQuantityInBaseUnit": null,
+						"StandardDeliveryLotSizeQuantityInBaseUnit": null,
+						"DeliveryLotSizeRoundingQuantityInBaseUnit": null,
+						"MaximumDeliveryLotSizeQuantityInBaseUnit": null,
+						"MaximumDeliveryQuantityInBaseUnit": null,
+						"DeliveryLotSizeIsFixed": null,
+						"StandardDeliveryDurationInDays": null,
+						"IsMarkedForDeletion": null
+					}
+				],
+				"Quality": [
+					{
+						"MaximumStoragePeriod": "",
+						"QualityMgmtCtrlKey": "",
+						"MatlQualityAuthorizationGroup": "",
+						"HasPostToInspectionStock": null,
+						"InspLotDocumentationIsRequired": null,
+						"SuplrQualityManagementSystem": "",
+						"RecrrgInspIntervalTimeInDays": null,
+						"ProductQualityCertificateType": "",
+						"IsMarkedForDeletion": null
+					}
+				],
+				"StorageLocation": [
+					{
+						"StorageLocation": "",
+						"CreationDate": "",
+						"InventoryBlockStatus": null,
+						"IsMarkedForDeletion": null,
+						"StorageBin": [
+							{
+								"StorageBin": "",
+								"CreationDate": "",
+								"BlockStatus": null,
+								"IsMarkedForDeletion": null
+							}
+						]
+					}
+				],
+				"WorkScheduling": [
+					{
+						"ProductionInvtryManagedLoc": "",
+						"ProductProcessingTime": null,
+						"ProductionSupervisor": "",
+						"ProductProductionQuantityUnit": "",
+						"ProdnOrderIsBatchRequired": null,
+						"PDTCompIsMarkedForBackflush": null,
+						"ProductionSchedulingProfile": "",
+						"MinimumLotSizeQuantity": null,
+						"StandardLotSizeQuantity": null,
+						"LotSizeRoundingQuantity": null,
+						"MaximumLotSizeQuantity": null,
+						"LotSizeIsFixed": null,
+						"IsMarkedForDeletion": null
+					}
+				]
+			}
+		],
+		"GeneralDoc": [
+			{
+				"DocType": "",
+				"DocVersionID": null,
+				"DocID": "",
+				"FileExtension": "",
+				"FileName": "",
+				"FilePath": "",
+				"DocIssuerBusinessPartner": null
+			}
+		],
+		"Tax": [
+			{
+				"Country": "",
+				"ProductTaxCategory": "",
+				"ProductTaxClassification": ""
+			}
+		]
+	},
+	"api_schema": "DPFMProductMasterCreates",
+	"accepter": [
+		"BPPlant"
+	],
+	"deleted": false
+}

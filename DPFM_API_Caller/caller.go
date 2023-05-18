@@ -5,6 +5,7 @@ import (
 	dpfm_api_input_reader "data-platform-api-product-master-creates-rmq-kube/DPFM_API_Input_Reader"
 	dpfm_api_output_formatter "data-platform-api-product-master-creates-rmq-kube/DPFM_API_Output_Formatter"
 	"data-platform-api-product-master-creates-rmq-kube/config"
+	"data-platform-api-product-master-creates-rmq-kube/existence_conf"
 	"sync"
 	"time"
 
@@ -17,16 +18,20 @@ type DPFMAPICaller struct {
 	ctx  context.Context
 	conf *config.Conf
 	rmq  *rabbitmq.RabbitmqClient
+
+	configure *existence_conf.ExistenceConf
 }
 
 func NewDPFMAPICaller(
 	conf *config.Conf, rmq *rabbitmq.RabbitmqClient,
 
+	confirmor *existence_conf.ExistenceConf,
 ) *DPFMAPICaller {
 	return &DPFMAPICaller{
-		ctx:  context.Background(),
-		conf: conf,
-		rmq:  rmq,
+		ctx:       context.Background(),
+		conf:      conf,
+		rmq:       rmq,
+		configure: confirmor,
 	}
 }
 
@@ -36,8 +41,30 @@ func (c *DPFMAPICaller) AsyncProductMasterCreates(
 	output *dpfm_api_output_formatter.SDC,
 	log *logger.Logger,
 ) (interface{}, []error) {
+	wg := sync.WaitGroup{}
 	mtx := sync.Mutex{}
 	errs := make([]error, 0, 5)
+	exconfAllExist := false
+
+	exconfFin := make(chan error)
+
+	// 他PODへ問い合わせ
+	wg.Add(1)
+	go c.exconfProcess(&mtx, &wg, exconfFin, input, output, &exconfAllExist, accepter, &errs, log)
+
+	// 処理待ち
+	ticker := time.NewTicker(10 * time.Second)
+	if err := c.finWait(&mtx, exconfFin, ticker); err != nil || len(errs) != 0 {
+		if err != nil {
+			errs = append(errs, err)
+		}
+		return dpfm_api_output_formatter.Message{}, errs
+	}
+	if !exconfAllExist {
+		mtx.Lock()
+		return dpfm_api_output_formatter.Message{}, nil
+	}
+	wg.Wait()
 
 	var response interface{}
 	if input.APIType == "creates" {
@@ -47,6 +74,30 @@ func (c *DPFMAPICaller) AsyncProductMasterCreates(
 	}
 
 	return response, nil
+}
+
+func (c *DPFMAPICaller) exconfProcess(
+	mtx *sync.Mutex,
+	wg *sync.WaitGroup,
+	exconfFin chan error,
+	input *dpfm_api_input_reader.SDC,
+	output *dpfm_api_output_formatter.SDC,
+	exconfAllExist *bool,
+	accepter []string,
+	errs *[]error,
+	log *logger.Logger,
+) {
+	defer wg.Done()
+	var e []error
+	*exconfAllExist, e = c.configure.Conf(input, output, accepter, log)
+	if len(e) != 0 {
+		mtx.Lock()
+		*errs = append(*errs, e...)
+		mtx.Unlock()
+		exconfFin <- xerrors.New("exconf error")
+		return
+	}
+	exconfFin <- nil
 }
 
 func (c *DPFMAPICaller) finWait(

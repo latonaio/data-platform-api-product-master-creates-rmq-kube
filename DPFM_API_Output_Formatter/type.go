@@ -30,13 +30,15 @@ type Message struct {
 	Allergen           *[]Allergen           `json:"Allergen"`
 	NutritionalInfo    *[]NutritionalInfo    `json:"NutritionalInfo"`
 	Calories           *[]Calories           `json:"Calories"`
-	BPPlant            *[]BPPlant            `json:"BPPlant"`
-	StorageLocation    *[]StorageLocation    `json:"StorageLocation"`
-	MRPArea            *[]MRPArea            `json:"MRPArea"`
-	WorkScheduling     *[]WorkScheduling     `json:"WorkScheduling"`
-	Accounting         *[]Accounting         `json:"Accounting"`
 	ProductDescription *[]ProductDescription `json:"ProductDescription"`
 	ProductDescByBP    *[]ProductDescByBP    `json:"ProductDescByBP"`
+	BPPlant            *[]BPPlant            `json:"BPPlant"`
+	Accounting         *[]Accounting         `json:"Accounting"`
+	MRPArea            *[]MRPArea            `json:"MRPArea"`
+	Quality            *[]Quality            `json:"Quality"`
+	StorageLocation    *[]StorageLocation    `json:"StorageLocation"`
+	StorageBin         *[]StorageBin         `json:"StorageBin"`
+	WorkScheduling     *[]WorkScheduling     `json:"WorkScheduling"`
 	Tax                *[]Tax                `json:"Tax"`
 }
 
@@ -78,12 +80,13 @@ type Allergen struct {
 	BusinessPartner     int    `json:"BusinessPartner"`
 	Allergen            string `json:"Allergen"`
 	AllergenIsContained *bool  `json:"AllergenIsContained"`
+	IsMarkedForDeletion *bool  `json:"IsMarkedForDeletion"`
 }
 
 type NutritionalInfo struct {
 	Product             string  `json:"Product"`
 	BusinessPartner     int     `json:"BusinessPartner"`
-	Nutrient            int     `json:"Nutrient"`
+	Nutrient            string  `json:"Nutrient"`
 	NutrientContent     *int    `json:"NutrientContent"`
 	NutrientContentUnit *string `json:"NutrientContentUnit"`
 }
@@ -94,6 +97,19 @@ type Calories struct {
 	CaloryUnitQuantity int     `json:"CaloryUnitQuantity"`
 	Calories           *int    `json:"Calories"`
 	CaloryUnit         *string `json:"CaloryUnit"`
+}
+
+type ProductDescription struct {
+	Product            string  `json:"Product"`
+	Language           string  `json:"Language"`
+	ProductDescription *string `json:"ProductDescription"`
+}
+
+type ProductDescByBP struct {
+	Product            string  `json:"Product"`
+	BusinessPartner    int     `json:"BusinessPartner"`
+	Language           string  `json:"Language"`
+	ProductDescription *string `json:"ProductDescription"`
 }
 
 type BPPlant struct {
@@ -124,14 +140,17 @@ type BPPlant struct {
 	IsMarkedForDeletion                       *bool    `json:"IsMarkedForDeletion"`
 }
 
-type StorageLocation struct {
-	Product              string  `json:"Product"`
-	BusinessPartner      int     `json:"BusinessPartner"`
-	Plant                string  `json:"Plant"`
-	StorageLocation      string  `json:"StorageLocation"`
-	CreationDate         *string `json:"CreationDate"`
-	InventoryBlockStatus *bool   `json:"InventoryBlockStatus"`
-	IsMarkedForDeletion  *bool   `json:"IsMarkedForDeletion"`
+type Accounting struct {
+	Product             string   `json:"Product"`
+	BusinessPartner     int      `json:"BusinessPartner"`
+	Plant               string   `json:"Plant"`
+	ValuationClass      *string  `json:"ValuationClass"`
+	CostingPolicy       *string  `json:"CostingPolicy"`
+	PriceUnitQty        *string  `json:"PriceUnitQty"`
+	StandardPrice       *float32 `json:"StandardPrice"`
+	MovingAveragePrice  *float32 `json:"MovingAveragePrice"`
+	PriceLastChangeDate *string  `json:"PriceLastChangeDate"`
+	IsMarkedForDeletion *bool    `json:"IsMarkedForDeletion"`
 }
 
 type MRPArea struct {
@@ -159,44 +178,59 @@ type MRPArea struct {
 	IsMarkedForDeletion                       *bool    `json:"IsMarkedForDeletion"`
 }
 
+type Quality struct {
+	Product                        string  `json:"Product"`
+	BusinessPartner                int     `json:"BusinessPartner"`
+	Plant                          string  `json:"Plant"`
+	MaximumStoragePeriod           *string `json:"MaximumStoragePeriod"`
+	QualityMgmtCtrlKey             *string `json:"QualityMgmtCtrlKey"`
+	MatlQualityAuthorizationGroup  *string `json:"MatlQualityAuthorizationGroup"`
+	HasPostToInspectionStock       *bool   `json:"HasPostToInspectionStock"`
+	InspLotDocumentationIsRequired *bool   `json:"InspLotDocumentationIsRequired"`
+	SuplrQualityManagementSystem   *string `json:"SuplrQualityManagementSystem"`
+	RecrrgInspIntervalTimeInDays   *int    `json:"RecrrgInspIntervalTimeInDays"`
+	ProductQualityCertificateType  *string `json:"ProductQualityCertificateType"`
+	IsMarkedForDeletion            *bool   `json:"IsMarkedForDeletion"`
+}
+
+type StorageLocation struct {
+	Product              string  `json:"Product"`
+	BusinessPartner      int     `json:"BusinessPartner"`
+	Plant                string  `json:"Plant"`
+	StorageLocation      string  `json:"StorageLocation"`
+	CreationDate         *string `json:"CreationDate"`
+	InventoryBlockStatus *bool   `json:"InventoryBlockStatus"`
+	IsMarkedForDeletion  *bool   `json:"IsMarkedForDeletion"`
+}
+
+type StorageBin struct {
+	Product             string  `json:"Product"`
+	BusinessPartner     int     `json:"BusinessPartner"`
+	Plant               string  `json:"Plant"`
+	StorageLocation     string  `json:"StorageLocation"`
+	StorageBin          string  `json:"StorageBin"`
+	CreationDate        *string `json:"CreationDate"`
+	BlockStatus         *bool   `json:"BlockStatus"`
+	IsMarkedForDeletion *bool   `json:"IsMarkedForDeletion"`
+}
+
 type WorkScheduling struct {
-	Product                       string  `json:"Product"`
-	BusinessPartner               int     `json:"BusinessPartner"`
-	Plant                         string  `json:"Plant"`
-	ProductionInvtryManagedLoc    *string `json:"ProductionInvtryManagedLoc"`
-	ProductProcessingTime         *int    `json:"ProductProcessingTime"`
-	ProductionSupervisor          *string `json:"ProductionSupervisor"`
-	ProductProductionQuantityUnit *string `json:"ProductProductionQuantityUnit"`
-	ProdnOrderIsBatchRequired     *bool   `json:"ProdnOrderIsBatchRequired"`
-	PDTCompIsMarkedForBackflush   *bool   `json:"PDTCompIsMarkedForBackflush"`
-	ProductionSchedulingProfile   *string `json:"ProductionSchedulingProfile"`
-	IsMarkedForDeletion           *bool   `json:"IsMarkedForDeletion"`
-}
-
-type Accounting struct {
-	Product             string   `json:"Product"`
-	BusinessPartner     int      `json:"BusinessPartner"`
-	Plant               string   `json:"Plant"`
-	ValuationClass      *string  `json:"ValuationClass"`
-	CostingPolicy       *string  `json:"CostingPolicy"`
-	PriceUnitQty        *string  `json:"PriceUnitQty"`
-	StandardPrice       *float32 `json:"StandardPrice"`
-	MovingAveragePrice  *float32 `json:"MovingAveragePrice"`
-	PriceLastChangeDate *string  `json:"PriceLastChangeDate"`
-	IsMarkedForDeletion *bool    `json:"IsMarkedForDeletion"`
-}
-
-type ProductDescription struct {
-	Product            string  `json:"Product"`
-	Language           string  `json:"Language"`
-	ProductDescription *string `json:"ProductDescription"`
-}
-
-type ProductDescByBP struct {
-	Product            string  `json:"Product"`
-	BusinessPartner    int     `json:"BusinessPartner"`
-	Language           string  `json:"Language"`
-	ProductDescription *string `json:"ProductDescription"`
+	Product                       string   `json:"Product"`
+	BusinessPartner               int      `json:"BusinessPartner"`
+	Plant                         string   `json:"Plant"`
+	ProductionInvtryManagedLoc    *string  `json:"ProductionInvtryManagedLoc"`
+	ProductProcessingTime         *int     `json:"ProductProcessingTime"`
+	ProductionSupervisor          *string  `json:"ProductionSupervisor"`
+	ProductProductionQuantityUnit *string  `json:"ProductProductionQuantityUnit"`
+	ProdnOrderIsBatchRequired     *bool    `json:"ProdnOrderIsBatchRequired"`
+	PDTCompIsMarkedForBackflush   *bool    `json:"PDTCompIsMarkedForBackflush"`
+	ProductionSchedulingProfile   *string  `json:"ProductionSchedulingProfile"`
+	MinimumLotSizeQuantity        *float32 `json:"MinimumLotSizeQuantity"`
+	StandardLotSizeQuantity       *float32 `json:"StandardLotSizeQuantity"`
+	LotSizeRoundingQuantity       *float32 `json:"LotSizeRoundingQuantity"`
+	MaximumLotSizeQuantity        *float32 `json:"MaximumLotSizeQuantity"`
+	LotSizeIsFixed                *bool    `json:"LotSizeIsFixed"`
+	IsMarkedForDeletion           *bool    `json:"IsMarkedForDeletion"`
 }
 
 type Tax struct {

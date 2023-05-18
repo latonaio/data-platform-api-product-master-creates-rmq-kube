@@ -1,10 +1,12 @@
 package main
 
 import (
+	"context"
 	dpfm_api_caller "data-platform-api-product-master-creates-rmq-kube/DPFM_API_Caller"
 	dpfm_api_input_reader "data-platform-api-product-master-creates-rmq-kube/DPFM_API_Input_Reader"
 	dpfm_api_output_formatter "data-platform-api-product-master-creates-rmq-kube/DPFM_API_Output_Formatter"
 	"data-platform-api-product-master-creates-rmq-kube/config"
+	"data-platform-api-product-master-creates-rmq-kube/existence_conf"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -15,6 +17,7 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
 	l := logger.NewLogger()
 	conf := config.NewConf()
 	db, err := database.NewMySQL(conf.DB)
@@ -35,7 +38,8 @@ func main() {
 	}
 	defer rmq.Stop()
 
-	caller := dpfm_api_caller.NewDPFMAPICaller(conf, rmq)
+	confirmor := existence_conf.NewExistenceConf(ctx, conf, rmq, db)
+	caller := dpfm_api_caller.NewDPFMAPICaller(conf, rmq, confirmor)
 
 	for msg := range iter {
 		start := time.Now()
@@ -69,11 +73,7 @@ func callProcess(rmq *rabbitmq.RabbitmqClient, caller *dpfm_api_caller.DPFMAPICa
 	var input dpfm_api_input_reader.SDC
 	var output dpfm_api_output_formatter.SDC
 
-	err = json.Unmarshal(msg.Raw(), &input)
-	if err != nil {
-		l.Error(err)
-		return
-	}
+	input = dpfm_api_input_reader.ConvertToSDC(msg.Raw())
 	err = json.Unmarshal(msg.Raw(), &output)
 	if err != nil {
 		l.Error(err)

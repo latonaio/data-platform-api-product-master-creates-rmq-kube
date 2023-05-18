@@ -6,6 +6,7 @@ func ConvertToGeneralUpdates(general dpfm_api_input_reader.General) *GeneralUpda
 	data := general
 
 	return &GeneralUpdates{
+		Product:                       data.Product,
 		BaseUnit:                      data.BaseUnit,
 		ValidityStartDate:             data.ValidityStartDate,
 		GrossWeight:                   data.GrossWeight,
@@ -28,17 +29,25 @@ func ConvertToBusinessPartnerUpdates(businessPartnerUpdates dpfm_api_input_reade
 	data := businessPartnerUpdates
 
 	return &BusinessPartnerUpdates{
+		Product:                data.Product,
+		BusinessPartner:        data.BusinessPartner,
+		ValidityEndDate:        data.ValidityEndDate,
+		ValidityStartDate:      data.ValidityStartDate,
 		BusinessPartnerProduct: data.BusinessPartnerProduct,
 		IsMarkedForDeletion:    data.IsMarkedForDeletion,
 	}
 }
 
 func ConvertToAllergenUpdates(allergenUpdates dpfm_api_input_reader.Allergen) *AllergenUpdates {
+	// dataGeneral := general
 	data := allergenUpdates
 
 	return &AllergenUpdates{
+		// Product: dataGeneral.Product,
+
 		Allergen:            data.Allergen,
 		AllergenIsContained: data.AllergenIsContained,
+		IsMarkedForDeletion: data.IsMarkedForDeletion,
 	}
 }
 
@@ -99,6 +108,19 @@ func ConvertToStorageLocationUpdates(storageLocationUpdates dpfm_api_input_reade
 	}
 }
 
+func ConvertToStorageBinUpdates(storageBinUpdates dpfm_api_input_reader.StorageBin) *StorageBinUpdates {
+	data := storageBinUpdates
+
+	return &StorageBinUpdates{
+		Product:         data.Product,
+		BusinessPartner: data.BusinessPartner,
+		Plant:           data.Plant,
+		StorageLocation: data.StorageLocation,
+		// StorageBin:          data.StorageBin,
+		IsMarkedForDeletion: data.IsMarkedForDeletion,
+	}
+}
+
 func ConvertToMRPAreaUpdates(mRPAreaUpdates dpfm_api_input_reader.MRPArea) *MRPAreaUpdates {
 	data := mRPAreaUpdates
 
@@ -135,8 +157,30 @@ func ConvertToWorkSchedulingUpdates(workSchedulingUpdates dpfm_api_input_reader.
 		ProdnOrderIsBatchRequired:     data.ProdnOrderIsBatchRequired,
 		PDTCompIsMarkedForBackflush:   data.PDTCompIsMarkedForBackflush,
 		ProductionSchedulingProfile:   data.ProductionSchedulingProfile,
+		MinimumLotSizeQuantity:        data.MinimumLotSizeQuantity,
+		StandardLotSizeQuantity:       data.StandardLotSizeQuantity,
+		LotSizeRoundingQuantity:       data.LotSizeRoundingQuantity,
+		MaximumLotSizeQuantity:        data.MaximumLotSizeQuantity,
+		LotSizeIsFixed:                data.LotSizeIsFixed,
 		IsMarkedForDeletion:           data.IsMarkedForDeletion,
 	}
+}
+
+func ConvertToQualityUpdates(qualityUpdates dpfm_api_input_reader.Quality) *QualityUpdates {
+
+	data := qualityUpdates
+
+	return &QualityUpdates{
+		MaximumStoragePeriod:           data.MaximumStoragePeriod,
+		QualityMgmtCtrlKey:             data.QualityMgmtCtrlKey,
+		MatlQualityAuthorizationGroup:  data.MatlQualityAuthorizationGroup,
+		HasPostToInspectionStock:       data.HasPostToInspectionStock,
+		InspLotDocumentationIsRequired: data.InspLotDocumentationIsRequired,
+		SuplrQualityManagementSystem:   data.SuplrQualityManagementSystem,
+		RecrrgInspIntervalTimeInDays:   data.RecrrgInspIntervalTimeInDays,
+		ProductQualityCertificateType:  data.ProductQualityCertificateType,
+	}
+
 }
 
 func ConvertToAccountingUpdates(accountingUpdates dpfm_api_input_reader.Accounting) *AccountingUpdates {

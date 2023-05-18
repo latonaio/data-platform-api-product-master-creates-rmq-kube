@@ -1,0 +1,50 @@
+{
+	"connection_key": "response",
+	"result": true,
+	"redis_key": "abcdefg",
+	"filepath": "/var/lib/aion/Data/rededge_sdc/abcdef.json",
+	"api_status_code": 200,
+	"runtime_session_id": "boi9ar543dg91ipdnspi099u231280ab0v8af0ew",
+	"business_partner": 101,
+	"service_label": "PRODUCT_MASTER",
+	"api_type": "creates",
+	"message": {
+		"General": null,
+		"BusinessPartner": [
+			{
+				"Product": "X103",
+				"BusinessPartner": 101,
+				"ValidityEndDate": "2030-12-31",
+				"ValidityStartDate": "2020-01-01",
+				"BusinessPartnerProduct": "",
+				"IsMarkedForDeletion": false
+			}
+		],
+		"Allergen": null,
+		"NutritionalInfo": null,
+		"Calories": null,
+		"ProductDescription": null,
+		"ProductDescByBP": null,
+		"BPPlant": null,
+		"Accounting": null,
+		"MRPArea": null,
+		"Quality": null,
+		"StorageLocation": null,
+		"StorageBin": null,
+		"WorkScheduling": null,
+		"Tax": null
+	},
+	"api_schema": "DPFMProductMasterCreates",
+	"accepter": [
+		"BusinessPartner"
+	],
+	"deleted": false,
+	"sql_update_result": true,
+	"sql_update_error": "",
+	"subfunc_result": null,
+	"subfunc_error": "",
+	"exconf_result": true,
+	"exconf_error": "",
+	"api_processing_result": true,
+	"api_processing_error": ""
+}
