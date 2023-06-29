@@ -7,8 +7,9 @@ func ConvertToGeneralUpdates(general dpfm_api_input_reader.General) *GeneralUpda
 
 	return &GeneralUpdates{
 		Product:                       data.Product,
-		BaseUnit:                      data.BaseUnit,
 		ValidityStartDate:             data.ValidityStartDate,
+		ValidityEndDate: 	           data.ValidityEndDate,
+		ProductGroup: 	       		   data.ProductGroup,		
 		GrossWeight:                   data.GrossWeight,
 		NetWeight:                     data.NetWeight,
 		WeightUnit:                    data.WeightUnit,
@@ -20,8 +21,9 @@ func ConvertToGeneralUpdates(general dpfm_api_input_reader.General) *GeneralUpda
 		BarcodeType:                   data.BarcodeType,
 		CountryOfOrigin:               data.CountryOfOrigin,
 		CountryOfOriginLanguage:       data.CountryOfOriginLanguage,
+		LocalRegionOfOrigin:           data.LocalRegionOfOrigin,
+		LocalSubRegionOfOrigin:        data.LocalSubRegionOfOrigin,
 		ProductAccountAssignmentGroup: data.ProductAccountAssignmentGroup,
-		IsMarkedForDeletion:           data.IsMarkedForDeletion,
 	}
 }
 
