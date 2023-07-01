@@ -1,6 +1,6 @@
 # data-platform-api-product-master-creates-rmq-kube
 
-data-platform-api-product-master-creates-rmq-kube は、周辺業務システム　を データ連携基盤 と統合することを目的に、API で品目マスタデータを取得するマイクロサービスです。  
+data-platform-api-product-master-creates-rmq-kube は、周辺業務システム　を データ連携基盤 と統合することを目的に、API で品目マスタデータを登録するマイクロサービスです。  
 https://xxx.xxx.io/api/API_ORDERS_SRV/creates/
 
 ## 動作環境
@@ -19,22 +19,20 @@ APIサービス URL: https://xxx.xxx.io/api/API_ORDERS_SRV/creates/
 data-platform-api-product-master-creates-rmq-kube には、次の API をコールするためのリソースが含まれています。  
 
 * A_General（データ連携基盤 品目マスタ - 基本データ）
-* A_ProductDescription（データ連携基盤 品目マスタ - 品目テキストデータ）
-* A_GeneralPDF（データ連携基盤 品目マスタ - 基本PDFデータ）
-* A_BusinessPartner（データ連携基盤 品目マスタ - ビジネスパートナデータ）
-* A_ProductDescriptionByBusinessPartner（データ連携基盤 品目マスタ - ビジネスパートナ品目テキストデータ）
+* A_ProductDesc（データ連携基盤 品目マスタ - 品目テキストデータ）
+* A_BusinessPartner（データ連携基盤 品目マスタ - 取引先データ）
+* A_ProductDescByBP（データ連携基盤 品目マスタ - ビジネスパートナ品目テキストデータ）
+* A_BPPlant（データ連携基盤 品目マスタ - 取引先プラントデータ）
+* A_StorageLocation（データ連携基盤 品目マスタ - 保管場所データ）
+* A_StorageBin（データ連携基盤 品目マスタ - 棚番データ）
+* A_MRPArea（データ連携基盤 品目マスタ - MRPエリアデータ）
+* A_Production（データ連携基盤 品目マスタ - 製造データ）
+* A_Quality（データ連携基盤 品目マスタ - 品質データ）
+* A_Accounting（データ連携基盤 品目マスタ - 会計データ）
+* A_Tax（データ連携基盤 品目マスタ - 税データ）
 * A_Allergen（データ連携基盤 品目マスタ - アレルゲンデータ）
 * A_NutritionalInfo（データ連携基盤 品目マスタ - 栄養成分データ）
 * A_Calories（データ連携基盤 品目マスタ - 熱量データ）
-* A_BPPlant（データ連携基盤 品目マスタ - ビジネスパートナプラントデータ）
-* A_BPPlantPDF（データ連携基盤 品目マスタ - ビジネスパートナプラントPDFデータ）
-* A_StorageLocation （データ連携基盤 品目マスタ - 保管場所データ）
-* A_Sales（データ連携基盤 品目マスタ - 販売データ）
-* A_Procurement（データ連携基盤 品目マスタ - 購買データ）
-* A_MRPArea（データ連携基盤 品目マスタ - MRPエリアデータ）
-* A_WorkScheduling（データ連携基盤 品目マスタ - 作業計画データ）
-* A_Tax（データ連携基盤 品目マスタ - 税データ）
-* A_Accounting （データ連携基盤 品目マスタ - 会計データ）
 
 ## API への 値入力条件 の 初期値
 data-platform-api-product-master-creates-rmq-kube において、API への値入力条件の初期値は、入力ファイルレイアウトの種別毎に、次の通りとなっています。  

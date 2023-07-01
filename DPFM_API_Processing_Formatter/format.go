@@ -36,40 +36,6 @@ func ConvertToBusinessPartnerUpdates(businessPartnerUpdates dpfm_api_input_reade
 		ValidityEndDate:        data.ValidityEndDate,
 		ValidityStartDate:      data.ValidityStartDate,
 		BusinessPartnerProduct: data.BusinessPartnerProduct,
-		IsMarkedForDeletion:    data.IsMarkedForDeletion,
-	}
-}
-
-func ConvertToAllergenUpdates(allergenUpdates dpfm_api_input_reader.Allergen) *AllergenUpdates {
-	// dataGeneral := general
-	data := allergenUpdates
-
-	return &AllergenUpdates{
-		// Product: dataGeneral.Product,
-
-		Allergen:            data.Allergen,
-		AllergenIsContained: data.AllergenIsContained,
-		IsMarkedForDeletion: data.IsMarkedForDeletion,
-	}
-}
-
-func ConvertToNutritionalInfoUpdates(nutritionalInfoUpdates dpfm_api_input_reader.NutritionalInfo) *NutritionalInfoUpdates {
-	data := nutritionalInfoUpdates
-
-	return &NutritionalInfoUpdates{
-		Nutrient:            data.Nutrient,
-		NutrientContent:     data.NutrientContent,
-		NutrientContentUnit: data.NutrientContentUnit,
-	}
-}
-
-func ConvertToCaloriesUpdates(caloriesUpdates dpfm_api_input_reader.Calories) *CaloriesUpdates {
-	data := caloriesUpdates
-
-	return &CaloriesUpdates{
-		CaloryUnitQuantity: data.CaloryUnitQuantity,
-		Calories:           data.Calories,
-		CaloryUnit:         data.CaloryUnit,
 	}
 }
 
@@ -77,27 +43,31 @@ func ConvertToBPPlantUpdates(bpPlantUpdates dpfm_api_input_reader.BPPlant) *BPPl
 	data := bpPlantUpdates
 
 	return &BPPlantUpdates{
-		AvailabilityCheckType:                     data.AvailabilityCheckType,
+		Product:								   data.Product,
+		BusinessPartner:						   data.BusinessPartner,
+		Plant:						   			   data.Plant,
 		MRPType:                                   data.MRPType,
 		MRPController:                             data.MRPController,
-		ReorderThresholdQuantity:                  data.ReorderThresholdQuantity,
-		PlanningTimeFence:                         data.PlanningTimeFence,
+		ReorderThresholdQuantityInBaseUnit:        data.ReorderThresholdQuantityInBaseUnit,
+		PlanningTimeFenceInDays:                   data.PlanningTimeFenceInDays,
 		MRPPlanningCalendar:                       data.MRPPlanningCalendar,
 		SafetyStockQuantityInBaseUnit:             data.SafetyStockQuantityInBaseUnit,
 		SafetyDuration:                            data.SafetyDuration,
+		SafetyDurationUnit:                        data.SafetyDurationUnit,
 		MaximumStockQuantityInBaseUnit:            data.MaximumStockQuantityInBaseUnit,
 		MinimumDeliveryQuantityInBaseUnit:         data.MinimumDeliveryQuantityInBaseUnit,
 		MinimumDeliveryLotSizeQuantityInBaseUnit:  data.MinimumDeliveryLotSizeQuantityInBaseUnit,
+		StandardDeliveryQuantityInBaseUnit:        data.StandardDeliveryQuantityInBaseUnit,
 		StandardDeliveryLotSizeQuantityInBaseUnit: data.StandardDeliveryLotSizeQuantityInBaseUnit,
-		DeliveryLotSizeRoundingQuantityInBaseUnit: data.DeliveryLotSizeRoundingQuantityInBaseUnit,
-		MaximumDeliveryLotSizeQuantityInBaseUnit:  data.MaximumDeliveryLotSizeQuantityInBaseUnit,
 		MaximumDeliveryQuantityInBaseUnit:         data.MaximumDeliveryQuantityInBaseUnit,
+		MaximumDeliveryLotSizeQuantityInBaseUnit:  data.MaximumDeliveryLotSizeQuantityInBaseUnit,
+		DeliveryLotSizeRoundingQuantityInBaseUnit: data.DeliveryLotSizeRoundingQuantityInBaseUnit,
 		DeliveryLotSizeIsFixed:                    data.DeliveryLotSizeIsFixed,
-		StandardDeliveryDurationInDays:            data.StandardDeliveryDurationInDays,
+		StandardDeliveryDuration:                  data.StandardDeliveryDuration,
+		StandardDeliveryDurationUnit:              data.StandardDeliveryDurationUnit,
 		IsBatchManagementRequired:                 data.IsBatchManagementRequired,
 		BatchManagementPolicy:                     data.BatchManagementPolicy,
-		InventoryUnit:                             data.InventoryUnit,
-		IsMarkedForDeletion:                       data.IsMarkedForDeletion,
+		ProfitCenter:                              data.ProfitCenter,
 	}
 }
 
@@ -105,8 +75,11 @@ func ConvertToStorageLocationUpdates(storageLocationUpdates dpfm_api_input_reade
 	data := storageLocationUpdates
 
 	return &StorageLocationUpdates{
-		InventoryBlockStatus: data.InventoryBlockStatus,
-		IsMarkedForDeletion:  data.IsMarkedForDeletion,
+		Product:				data.Product,
+		BusinessPartner:		data.BusinessPartner,
+		Plant:					data.Plant,
+		StorageLocation:		data.StorageLocation,
+		BlockStatus:			data.BlockStatus,
 	}
 }
 
@@ -114,12 +87,12 @@ func ConvertToStorageBinUpdates(storageBinUpdates dpfm_api_input_reader.StorageB
 	data := storageBinUpdates
 
 	return &StorageBinUpdates{
-		Product:         data.Product,
-		BusinessPartner: data.BusinessPartner,
-		Plant:           data.Plant,
-		StorageLocation: data.StorageLocation,
-		// StorageBin:          data.StorageBin,
-		IsMarkedForDeletion: data.IsMarkedForDeletion,
+		Product:				data.Product,
+		BusinessPartner:		data.BusinessPartner,
+		Plant:					data.Plant,
+		StorageLocation:		data.StorageLocation,
+		StorageBin:				data.StorageBin,
+		BlockStatus:			data.BlockStatus,
 	}
 }
 
@@ -127,44 +100,61 @@ func ConvertToMRPAreaUpdates(mRPAreaUpdates dpfm_api_input_reader.MRPArea) *MRPA
 	data := mRPAreaUpdates
 
 	return &MRPAreaUpdates{
-		StorageLocationForMRP:                     data.StorageLocationForMRP,
+		Product:								   data.Product,
+		BusinessPartner:						   data.BusinessPartner,
+		Plant:									   data.Plant,
+		MRPArea:								   data.MRPArea,
 		MRPType:                                   data.MRPType,
 		MRPController:                             data.MRPController,
-		ReorderThresholdQuantity:                  data.ReorderThresholdQuantity,
-		PlanningTimeFence:                         data.PlanningTimeFence,
+		StorageLocationForMRP:                     data.StorageLocationForMRP,
+		ReorderThresholdQuantityInBaseUnit:        data.ReorderThresholdQuantityInBaseUnit,
+		PlanningTimeFenceInDays:                   data.PlanningTimeFenceInDays,
 		MRPPlanningCalendar:                       data.MRPPlanningCalendar,
 		SafetyStockQuantityInBaseUnit:             data.SafetyStockQuantityInBaseUnit,
 		SafetyDuration:                            data.SafetyDuration,
+		SafetyDurationUnit:                        data.SafetyDurationUnit,
 		MaximumStockQuantityInBaseUnit:            data.MaximumStockQuantityInBaseUnit,
 		MinumumDeliveryQuantityInBaseUnit:         data.MinumumDeliveryQuantityInBaseUnit,
 		MinumumDeliveryLotSizeQuantityInBaseUnit:  data.MinumumDeliveryLotSizeQuantityInBaseUnit,
+		StandardDeliveryQuantityInBaseUnit:        data.StandardDeliveryQuantityInBaseUnit,
 		StandardDeliveryLotSizeQuantityInBaseUnit: data.StandardDeliveryLotSizeQuantityInBaseUnit,
-		DeliveryLotSizeRoundingQuantityInBaseUnit: data.DeliveryLotSizeRoundingQuantityInBaseUnit,
-		MaximumDeliveryLotSizeQuantityInBaseUnit:  data.MaximumDeliveryLotSizeQuantityInBaseUnit,
 		MaximumDeliveryQuantityInBaseUnit:         data.MaximumDeliveryQuantityInBaseUnit,
+		MaximumDeliveryLotSizeQuantityInBaseUnit:  data.MaximumDeliveryLotSizeQuantityInBaseUnit,
+		DeliveryLotSizeRoundingQuantityInBaseUnit: data.DeliveryLotSizeRoundingQuantityInBaseUnit,
 		DeliveryLotSizeIsFixed:                    data.DeliveryLotSizeIsFixed,
-		StandardDeliveryDurationInDays:            data.StandardDeliveryDurationInDays,
-		IsMarkedForDeletion:                       data.IsMarkedForDeletion,
+		StandardDeliveryDuration:                  data.StandardDeliveryDuration,
+		StandardDeliveryDurationUnit:              data.StandardDeliveryDurationUnit,
 	}
 }
 
-func ConvertToWorkSchedulingUpdates(workSchedulingUpdates dpfm_api_input_reader.WorkScheduling) *WorkSchedulingUpdates {
-	data := workSchedulingUpdates
+func ConvertToProductionUpdates(productionUpdates dpfm_api_input_reader.Production) *ProductionUpdates {
+	data := productionUpdates
 
-	return &WorkSchedulingUpdates{
-		ProductionInvtryManagedLoc:    data.ProductionInvtryManagedLoc,
-		ProductProcessingTime:         data.ProductProcessingTime,
-		ProductionSupervisor:          data.ProductionSupervisor,
-		ProductProductionQuantityUnit: data.ProductProductionQuantityUnit,
-		ProdnOrderIsBatchRequired:     data.ProdnOrderIsBatchRequired,
-		PDTCompIsMarkedForBackflush:   data.PDTCompIsMarkedForBackflush,
-		ProductionSchedulingProfile:   data.ProductionSchedulingProfile,
-		MinimumLotSizeQuantity:        data.MinimumLotSizeQuantity,
-		StandardLotSizeQuantity:       data.StandardLotSizeQuantity,
-		LotSizeRoundingQuantity:       data.LotSizeRoundingQuantity,
-		MaximumLotSizeQuantity:        data.MaximumLotSizeQuantity,
-		LotSizeIsFixed:                data.LotSizeIsFixed,
-		IsMarkedForDeletion:           data.IsMarkedForDeletion,
+	return &ProductionUpdates{
+			Product:					   						data.Product,
+			BusinessPartner:			   						data.BusinessPartner,
+			Plant:						   						data.Plant,
+			ProductionStorageLocation:							data.ProductionStorageLocation,
+			ProductProcessingDuration:							data.ProductProcessingDuration,
+			ProductProductionQuantityUnit:						data.ProductProductionQuantityUnit,
+			MinimumProductionQuantityInBaseUnit:				data.MinimumProductionQuantityInBaseUnit,
+			MinimumProductionLotSizeQuantityInBaseUnit:			data.MinimumProductionLotSizeQuantityInBaseUnit,
+			StandardProductionQuantityInBaseUnit:				data.StandardProductionQuantityInBaseUnit,
+			StandardProductionLotSizeQuantityInBaseUnit:		data.StandardProductionLotSizeQuantityInBaseUnit,
+			MaximumProductionQuantityInBaseUnit:				data.MaximumProductionQuantityInBaseUnit,
+			MaximumProductionLotSizeQuantityInBaseUnit:			data.MaximumProductionLotSizeQuantityInBaseUnit,
+			ProductionLotSizeRoundingQuantityInBaseUnit:		data.ProductionLotSizeRoundingQuantityInBaseUnit,
+			MinimumProductionQuantityInProductionUnit:			data.MinimumProductionQuantityInProductionUnit,
+			MinimumProductionLotSizeQuantityInProductionUnit:	data.MinimumProductionLotSizeQuantityInProductionUnit,
+			StandardProductionQuantityInProductionUnit:			data.StandardProductionQuantityInProductionUnit,
+			StandardProductionLotSizeQuantityInProductionUnit:	data.StandardProductionLotSizeQuantityInProductionUnit,
+			MaximumProductionLotSizeQuantityInProductionUnit:	data.MaximumProductionLotSizeQuantityInProductionUnit,
+			MaximumProductionQuantityInProductionUnit:			data.MaximumProductionQuantityInProductionUnit,
+			ProductionLotSizeRoundingQuantityInProductionUnit:	data.ProductionLotSizeRoundingQuantityInProductionUnit,
+			ProductionLotSizeIsFixed:							data.ProductionLotSizeIsFixed,
+			ProductIsBatchManagedInProductionPlant:				data.ProductIsBatchManagedInProductionPlant,
+			ProductIsMarkedForBackflush:						data.ProductIsMarkedForBackflush,
+			ProductionSchedulingProfile:						data.ProductionSchedulingProfile,
 	}
 }
 
@@ -173,6 +163,9 @@ func ConvertToQualityUpdates(qualityUpdates dpfm_api_input_reader.Quality) *Qual
 	data := qualityUpdates
 
 	return &QualityUpdates{
+		Product:						data.Product,
+		BusinessPartner:				data.BusinessPartner,
+		Plant:							data.Plant,
 		MaximumStoragePeriod:           data.MaximumStoragePeriod,
 		QualityMgmtCtrlKey:             data.QualityMgmtCtrlKey,
 		MatlQualityAuthorizationGroup:  data.MatlQualityAuthorizationGroup,
@@ -189,13 +182,10 @@ func ConvertToAccountingUpdates(accountingUpdates dpfm_api_input_reader.Accounti
 	data := accountingUpdates
 
 	return &AccountingUpdates{
+		Product:			 data.Product,
+		BusinessPartner:	 data.BusinessPartner,
+		Plant:				 data.Plant,
 		ValuationClass:      data.ValuationClass,
-		CostingPolicy:       data.CostingPolicy,
-		PriceUnitQty:        data.PriceUnitQty,
-		StandardPrice:       data.StandardPrice,
-		MovingAveragePrice:  data.MovingAveragePrice,
-		PriceLastChangeDate: data.PriceLastChangeDate,
-		IsMarkedForDeletion: data.IsMarkedForDeletion,
 	}
 }
 
@@ -203,6 +193,7 @@ func ConvertToProductDescriptionUpdates(productDescriptionUpdates dpfm_api_input
 	data := productDescriptionUpdates
 
 	return &ProductDescriptionUpdates{
+		Product:			data.Product,
 		ProductDescription: data.ProductDescription,
 	}
 }
@@ -211,6 +202,8 @@ func ConvertToProductDescByBPUpdates(productDescByBPUpdates dpfm_api_input_reade
 	data := productDescByBPUpdates
 
 	return &ProductDescByBPUpdates{
+		Product:			data.Product,
+		BusinessPartner:	data.BusinessPartner,
 		Language:           data.Language,
 		ProductDescription: data.ProductDescription,
 	}
@@ -220,6 +213,44 @@ func ConvertToTaxUpdates(taxUpdates dpfm_api_input_reader.Tax) *TaxUpdates {
 	data := taxUpdates
 
 	return &TaxUpdates{
+		Product:				  data.Product,
+		Country:				  data.Country,
+		ProductTaxCategory:		  data.ProductTaxCategory,
 		ProductTaxClassification: data.ProductTaxClassification,
+	}
+}
+
+func ConvertToAllergenUpdates(allergenUpdates dpfm_api_input_reader.Allergen) *AllergenUpdates {
+	data := allergenUpdates
+
+	return &AllergenUpdates{
+		Product:				data.Product,
+		BusinessPartner:		data.BusinessPartner,
+		Allergen:				data.Allergen,
+		AllergenIsContained:	data.AllergenIsContained,
+	}
+}
+
+func ConvertToNutritionalInfoUpdates(nutritionalInfoUpdates dpfm_api_input_reader.NutritionalInfo) *NutritionalInfoUpdates {
+	data := nutritionalInfoUpdates
+
+	return &NutritionalInfoUpdates{
+		Product:                data.Product,
+		BusinessPartner:        data.BusinessPartner,
+		Nutrient:				data.Nutrient,
+		NutrientContent:		data.NutrientContent,
+		NutrientContentUnit:	data.NutrientContentUnit,
+	}
+}
+
+func ConvertToCaloriesUpdates(caloriesUpdates dpfm_api_input_reader.Calories) *CaloriesUpdates {
+	data := caloriesUpdates
+
+	return &CaloriesUpdates{
+		Product:				data.Product,
+		BusinessPartner:		data.BusinessPartner,
+		Calories:				data.Calories,
+		CaloryUnit:				data.CaloryUnit,
+		CaloryUnitQuantity:		data.CaloryUnitQuantity,
 	}
 }

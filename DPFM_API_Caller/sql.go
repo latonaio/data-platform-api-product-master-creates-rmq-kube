@@ -33,7 +33,7 @@ func (c *DPFMAPICaller) createSqlProcess(
 	var quality *[]dpfm_api_output_formatter.Quality
 	var storageLocation *[]dpfm_api_output_formatter.StorageLocation
 	var storageBin *[]dpfm_api_output_formatter.StorageBin
-	var workScheduling *[]dpfm_api_output_formatter.WorkScheduling
+	var production *[]dpfm_api_output_formatter.Production
 	var tax *[]dpfm_api_output_formatter.Tax
 	for _, fn := range accepter {
 		switch fn {
@@ -63,8 +63,8 @@ func (c *DPFMAPICaller) createSqlProcess(
 			storageLocation = c.storageLocationCreateSql(nil, mtx, input, output, errs, log)
 		case "StorageBin":
 			storageBin = c.storageBinCreateSql(nil, mtx, input, output, errs, log)
-		case "WorkScheduling":
-			workScheduling = c.workSchedulingCreateSql(nil, mtx, input, output, errs, log)
+		case "Production":
+			production = c.productionCreateSql(nil, mtx, input, output, errs, log)
 		case "Tax":
 			tax = c.taxCreateSql(nil, mtx, input, output, errs, log)
 		default:
@@ -86,7 +86,7 @@ func (c *DPFMAPICaller) createSqlProcess(
 		Quality:            quality,
 		StorageLocation:    storageLocation,
 		StorageBin:         storageBin,
-		WorkScheduling:     workScheduling,
+		Production:     	production,
 		Tax:                tax,
 	}
 
@@ -115,7 +115,7 @@ func (c *DPFMAPICaller) updateSqlProcess(
 	var quality *[]dpfm_api_output_formatter.Quality
 	var storageLocation *[]dpfm_api_output_formatter.StorageLocation
 	var storageBin *[]dpfm_api_output_formatter.StorageBin
-	var workScheduling *[]dpfm_api_output_formatter.WorkScheduling
+	var production *[]dpfm_api_output_formatter.Production
 	var tax *[]dpfm_api_output_formatter.Tax
 	for _, fn := range accepter {
 		switch fn {
@@ -145,8 +145,8 @@ func (c *DPFMAPICaller) updateSqlProcess(
 			storageLocation = c.storageLocationUpdateSql(mtx, input, output, errs, log)
 		case "StorageBin":
 			storageBin = c.storageBinUpdateSql(mtx, input, output, errs, log)
-		case "WorkScheduling":
-			workScheduling = c.workSchedulingUpdateSql(mtx, input, output, errs, log)
+		case "Production":
+			production = c.productionUpdateSql(mtx, input, output, errs, log)
 		case "Tax":
 			tax = c.taxUpdateSql(mtx, input, output, errs, log)
 		default:
@@ -168,7 +168,7 @@ func (c *DPFMAPICaller) updateSqlProcess(
 		Quality:            quality,
 		StorageLocation:    storageLocation,
 		StorageBin:         storageBin,
-		WorkScheduling:     workScheduling,
+		Production:     	production,
 		Tax:                tax,
 	}
 
@@ -708,21 +708,21 @@ func (c *DPFMAPICaller) storageBinCreateSql(
 	return data
 }
 
-func (c *DPFMAPICaller) workSchedulingCreateSql(
+func (c *DPFMAPICaller) productionCreateSql(
 	ctx context.Context,
 	mtx *sync.Mutex,
 	input *dpfm_api_input_reader.SDC,
 	output *dpfm_api_output_formatter.SDC,
 	errs *[]error,
 	log *logger.Logger,
-) *[]dpfm_api_output_formatter.WorkScheduling {
+) *[]dpfm_api_output_formatter.Production {
 	if ctx == nil {
 		ctx = context.Background()
 	}
 	sessionID := input.RuntimeSessionID
 	for _, bPPlantData := range input.General.BPPlant {
-		for _, workSchedulingData := range bPPlantData.WorkScheduling {
-			res, err := c.rmq.SessionKeepRequest(ctx, c.conf.RMQ.QueueToSQL()[0], map[string]interface{}{"message": workSchedulingData, "function": "ProductMasterWorkScheduling", "runtime_session_id": sessionID})
+		for _, productionData := range bPPlantData.Production {
+			res, err := c.rmq.SessionKeepRequest(ctx, c.conf.RMQ.QueueToSQL()[0], map[string]interface{}{"message": productionData, "function": "ProductMasterProduction", "runtime_session_id": sessionID})
 			if err != nil {
 				err = xerrors.Errorf("rmq error: %w", err)
 				return nil
@@ -730,7 +730,7 @@ func (c *DPFMAPICaller) workSchedulingCreateSql(
 			res.Success()
 			if !checkResult(res) {
 				output.SQLUpdateResult = getBoolPtr(false)
-				output.SQLUpdateError = "WorkScheduling Data cannot insert"
+				output.SQLUpdateError = "Production Data cannot insert"
 				return nil
 			}
 		}
@@ -740,7 +740,7 @@ func (c *DPFMAPICaller) workSchedulingCreateSql(
 		output.SQLUpdateResult = getBoolPtr(true)
 	}
 
-	data, err := dpfm_api_output_formatter.ConvertToWorkSchedulingCreates(input)
+	data, err := dpfm_api_output_formatter.ConvertToProductionCreates(input)
 	if err != nil {
 		*errs = append(*errs, err)
 		return nil
@@ -1366,23 +1366,23 @@ func (c *DPFMAPICaller) storageBinUpdateSql(
 	return data
 }
 
-func (c *DPFMAPICaller) workSchedulingUpdateSql(
+func (c *DPFMAPICaller) productionUpdateSql(
 	mtx *sync.Mutex,
 	input *dpfm_api_input_reader.SDC,
 	output *dpfm_api_output_formatter.SDC,
 	errs *[]error,
 	log *logger.Logger,
-) *[]dpfm_api_output_formatter.WorkScheduling {
-	req := make([]dpfm_api_processing_formatter.WorkSchedulingUpdates, 0)
+) *[]dpfm_api_output_formatter.Production {
+	req := make([]dpfm_api_processing_formatter.ProductionUpdates, 0)
 	sessionID := input.RuntimeSessionID
 
 	general := input.General
 	for _, bpPlant := range general.BPPlant {
-		for _, workScheduling := range bpPlant.WorkScheduling {
-			workSchedulingData := *dpfm_api_processing_formatter.ConvertToWorkSchedulingUpdates(workScheduling)
+		for _, production := range bpPlant.Production {
+			productionData := *dpfm_api_processing_formatter.ConvertToProductionUpdates(production)
 
-			if workSchedulingIsUpdate(&workSchedulingData) {
-				res, err := c.rmq.SessionKeepRequest(nil, c.conf.RMQ.QueueToSQL()[0], map[string]interface{}{"message": workSchedulingData, "function": "ProductMasterWorkScheduling", "runtime_session_id": sessionID})
+			if productionIsUpdate(&productionData) {
+				res, err := c.rmq.SessionKeepRequest(nil, c.conf.RMQ.QueueToSQL()[0], map[string]interface{}{"message": productionData, "function": "ProductMasterProduction", "runtime_session_id": sessionID})
 				if err != nil {
 					err = xerrors.Errorf("rmq error: %w", err)
 					*errs = append(*errs, err)
@@ -1391,18 +1391,18 @@ func (c *DPFMAPICaller) workSchedulingUpdateSql(
 				res.Success()
 				if !checkResult(res) {
 					output.SQLUpdateResult = getBoolPtr(false)
-					output.SQLUpdateError = "WorkScheduling Data cannot update"
+					output.SQLUpdateError = "Production Data cannot update"
 					return nil
 				}
 			}
-			req = append(req, workSchedulingData)
+			req = append(req, productionData)
 		}
 	}
 	if output.SQLUpdateResult == nil {
 		output.SQLUpdateResult = getBoolPtr(true)
 	}
 
-	data, err := dpfm_api_output_formatter.ConvertToWorkSchedulingUpdates(&req)
+	data, err := dpfm_api_output_formatter.ConvertToProductionUpdates(&req)
 	if err != nil {
 		*errs = append(*errs, err)
 		return nil

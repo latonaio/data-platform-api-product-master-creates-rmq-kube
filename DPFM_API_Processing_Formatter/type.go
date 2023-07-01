@@ -2,8 +2,8 @@ package dpfm_api_processing_formatter
 
 type GeneralUpdates struct {
 	Product                       string   `json:"Product"`
-	ValidityStartDate             *string  `json:"ValidityStartDate"`
-	ValidityEndDate	              *string  `json:"ValidityEndDate"`
+	ValidityStartDate             string   `json:"ValidityStartDate"`
+	ValidityEndDate	              string   `json:"ValidityEndDate"`
 	ProductGroup	              *string  `json:"ProductGroup"`
 	GrossWeight                   *float32 `json:"GrossWeight"`
 	NetWeight                     *float32 `json:"NetWeight"`
@@ -46,13 +46,13 @@ type BPPlantUpdates struct {
 	Product                                   string   `json:"Product"`
 	BusinessPartner                           int      `json:"BusinessPartner"`
 	Plant                                     string   `json:"Plant"`
-	MRPType                                   *string  `json:"MRPType"`
+	MRPType                                   string   `json:"MRPType"`
 	MRPController                             *string  `json:"MRPController"`
 	ReorderThresholdQuantityInBaseUnit        *float32 `json:"ReorderThresholdQuantityInBaseUnit"`
 	PlanningTimeFenceInDays                   *int     `json:"PlanningTimeFenceInDays"`
 	MRPPlanningCalendar                       *string  `json:"MRPPlanningCalendar"`
 	SafetyStockQuantityInBaseUnit             *float32 `json:"SafetyStockQuantityInBaseUnit"`
-	SafetyDuration                            *int     `json:"SafetyDuration"`
+	SafetyDuration                            *float32 `json:"SafetyDuration"`
 	SafetyDurationUnit                        *string  `json:"SafetyDurationUnit"`
 	MaximumStockQuantityInBaseUnit            *float32 `json:"MaximumStockQuantityInBaseUnit"`
 	MinimumDeliveryQuantityInBaseUnit         *float32 `json:"MinimumDeliveryQuantityInBaseUnit"`
@@ -64,9 +64,10 @@ type BPPlantUpdates struct {
 	DeliveryLotSizeRoundingQuantityInBaseUnit *float32 `json:"DeliveryLotSizeRoundingQuantityInBaseUnit"`
 	DeliveryLotSizeIsFixed                    *bool    `json:"DeliveryLotSizeIsFixed"`
 	StandardDeliveryDuration	              *float32 `json:"StandardDeliveryDuration"`
-	StandardDeliveryDurationUnit              *string  `json:"StandardDeliveryDurationUnit"`
+	StandardDeliveryDurationUnit	          *string  `json:"StandardDeliveryDurationUnit"`
 	IsBatchManagementRequired                 *bool    `json:"IsBatchManagementRequired"`
 	BatchManagementPolicy                     *string  `json:"BatchManagementPolicy"`
+	ProfitCenter                              *string  `json:"ProfitCenter"`
 }
 
 type MRPAreaUpdates struct {
@@ -74,18 +75,18 @@ type MRPAreaUpdates struct {
 	BusinessPartner                           int      `json:"BusinessPartner"`
 	Plant                                     string   `json:"Plant"`
 	MRPArea                                   string   `json:"MRPArea"`
-	StorageLocationForMRP                     *string  `json:"StorageLocationForMRP"`
-	MRPType                                   *string  `json:"MRPType"`
-	MRPController                             *string  `json:"MRPController"`
+	MRPType                                   string   `json:"MRPType"`
+	MRPController                             string   `json:"MRPController"`
+	StorageLocationForMRP                     string   `json:"StorageLocationForMRP"`
 	ReorderThresholdQuantityInBaseUnit        *float32 `json:"ReorderThresholdQuantityInBaseUnit"`
 	PlanningTimeFenceInDays                   *int     `json:"PlanningTimeFenceInDays"`
 	MRPPlanningCalendar                       *string  `json:"MRPPlanningCalendar"`
 	SafetyStockQuantityInBaseUnit             *float32 `json:"SafetyStockQuantityInBaseUnit"`
-	SafetyDuration                            *int     `json:"SafetyDuration"`
+	SafetyDuration                            *float32 `json:"SafetyDuration"`
 	SafetyDurationUnit                        *string  `json:"SafetyDurationUnit"`
 	MaximumStockQuantityInBaseUnit            *float32 `json:"MaximumStockQuantityInBaseUnit"`
-	MinimumDeliveryQuantityInBaseUnit         *float32 `json:"MinimumDeliveryQuantityInBaseUnit"`
-	MinimumDeliveryLotSizeQuantityInBaseUnit  *float32 `json:"MinimumDeliveryLotSizeQuantityInBaseUnit"`
+	MinumumDeliveryQuantityInBaseUnit         *float32 `json:"MinumumDeliveryQuantityInBaseUnit"`
+	MinumumDeliveryLotSizeQuantityInBaseUnit  *float32 `json:"MinumumDeliveryLotSizeQuantityInBaseUnit"`
 	StandardDeliveryQuantityInBaseUnit        *float32 `json:"StandardDeliveryQuantityInBaseUnit"`
 	StandardDeliveryLotSizeQuantityInBaseUnit *float32 `json:"StandardDeliveryLotSizeQuantityInBaseUnit"`
 	MaximumDeliveryQuantityInBaseUnit         *float32 `json:"MaximumDeliveryQuantityInBaseUnit"`
@@ -94,30 +95,28 @@ type MRPAreaUpdates struct {
 	DeliveryLotSizeIsFixed                    *bool    `json:"DeliveryLotSizeIsFixed"`
 	StandardDeliveryDuration	              *float32 `json:"StandardDeliveryDuration"`
 	StandardDeliveryDurationUnit              *string  `json:"StandardDeliveryDurationUnit"`
-	IsBatchManagementRequired                 *bool    `json:"IsBatchManagementRequired"`
-	BatchManagementPolicy                     *string  `json:"BatchManagementPolicy"`
 }
 
 type ProductionUpdates struct {
 	Product												string		`json:"Product"`
 	BusinessPartner										int			`json:"BusinessPartner"`
 	Plant												string		`json:"Plant"`
-	ProductionStorageLocation							*string		`json:"ProductionStorageLocation"`
-	ProductProcessingDuration							*float32	`json:"ProductProcessingDuration"`
-	ProductProductionQuantityUnit						*string		`json:"ProductProductionQuantityUnit"`
-	MinimumProductionQuantityInBaseUnit					*float32	`json:"MinimumProductionQuantityInBaseUnit"`
-	MinimumProductionLotSizeQuantityInBaseUnit			*float32	`json:"MinimumProductionLotSizeQuantityInBaseUnit"`
-	StandardProductionQuantityInBaseUnit				*float32	`json:"StandardProductionQuantityInBaseUnit"`
-	StandardProductionLotSizeQuantityInBaseUnit			*float32	`json:"StandardProductionLotSizeQuantityInBaseUnit"`
-	MaximumProductionQuantityInBaseUnit					*float32	`json:"MaximumProductionQuantityInBaseUnit"`
-	MaximumProductionLotSizeQuantityInBaseUnit			*float32	`json:"MaximumProductionLotSizeQuantityInBaseUnit"`
+	ProductionStorageLocation							string		`json:"ProductionStorageLocation"`
+	ProductProcessingDuration							float32		`json:"ProductProcessingDuration"`
+	ProductProductionQuantityUnit						string		`json:"ProductProductionQuantityUnit"`
+	MinimumProductionQuantityInBaseUnit					float32		`json:"MinimumProductionQuantityInBaseUnit"`
+	MinimumProductionLotSizeQuantityInBaseUnit			float32		`json:"MinimumProductionLotSizeQuantityInBaseUnit"`
+	StandardProductionQuantityInBaseUnit				float32		`json:"StandardProductionQuantityInBaseUnit"`
+	StandardProductionLotSizeQuantityInBaseUnit			float32		`json:"StandardProductionLotSizeQuantityInBaseUnit"`
+	MaximumProductionQuantityInBaseUnit					float32		`json:"MaximumProductionQuantityInBaseUnit"`
+	MaximumProductionLotSizeQuantityInBaseUnit			float32		`json:"MaximumProductionLotSizeQuantityInBaseUnit"`
 	ProductionLotSizeRoundingQuantityInBaseUnit			*float32	`json:"ProductionLotSizeRoundingQuantityInBaseUnit"`
-	MinimumProductionQuantityInProductionUnit			*float32	`json:"MinimumProductionQuantityInProductionUnit"`
-	MinimumProductionLotSizeQuantityInProductionUnit	*float32	`json:"MinimumProductionLotSizeQuantityInProductionUnit"`
-	StandardProductionQuantityInProductionUnit			*float32	`json:"StandardProductionQuantityInProductionUnit"`
-	StandardProductionLotSizeQuantityInProductionUnit	*float32	`json:"StandardProductionLotSizeQuantityInProductionUnit"`
-	MaximumProductionLotSizeQuantityInProductionUnit	*float32	`json:"MaximumProductionLotSizeQuantityInProductionUnit"`
-	MaximumProductionQuantityInProductionUnit			*float32	`json:"MaximumProductionQuantityInProductionUnit"`
+	MinimumProductionQuantityInProductionUnit			float32		`json:"MinimumProductionQuantityInProductionUnit"`
+	MinimumProductionLotSizeQuantityInProductionUnit	float32		`json:"MinimumProductionLotSizeQuantityInProductionUnit"`
+	StandardProductionQuantityInProductionUnit			float32		`json:"StandardProductionQuantityInProductionUnit"`
+	StandardProductionLotSizeQuantityInProductionUnit	float32		`json:"StandardProductionLotSizeQuantityInProductionUnit"`
+	MaximumProductionLotSizeQuantityInProductionUnit	float32		`json:"MaximumProductionLotSizeQuantityInProductionUnit"`
+	MaximumProductionQuantityInProductionUnit			float32		`json:"MaximumProductionQuantityInProductionUnit"`
 	ProductionLotSizeRoundingQuantityInProductionUnit	*float32	`json:"ProductionLotSizeRoundingQuantityInProductionUnit"`
 	ProductionLotSizeIsFixed							*bool		`json:"ProductionLotSizeIsFixed"`
 	ProductIsBatchManagedInProductionPlant				*bool		`json:"ProductIsBatchManagedInProductionPlant"`
@@ -147,20 +146,20 @@ type QualityUpdates struct {
 }
 
 type StorageLocationUpdates struct {
+	Product              string  `json:"Product"`
+	BusinessPartner      int     `json:"BusinessPartner"`
+	Plant                string  `json:"Plant"`
+	StorageLocation      string  `json:"StorageLocation"`
+	BlockStatus 		 *bool   `json:"BlockStatus"`
+}
+
+type StorageBinUpdates struct {
 	Product             string  `json:"Product"`
 	BusinessPartner     int     `json:"BusinessPartner"`
 	Plant               string  `json:"Plant"`
 	StorageLocation     string  `json:"StorageLocation"`
+	StorageBin          string  `json:"StorageBin"`
 	BlockStatus         *bool   `json:"BlockStatus"`
-}
-
-type StorageBinUpdates struct {
-	Product             string `json:"Product"`
-	BusinessPartner     int    `json:"BusinessPartner"`
-	Plant               string `json:"Plant"`
-	StorageLocation     string `json:"StorageLocation"`
-	StorageBin          string `json:"StorageBin"`
-	BlockStatus         *bool  `json:"BlockStatus"`
 }
 
 type TaxUpdates struct {
@@ -177,17 +176,17 @@ type AllergenUpdates struct {
 }
 
 type NutritionalInfoUpdates struct {
-	Product             string  `json:"Product"`
-	BusinessPartner     int     `json:"BusinessPartner"`
-	Nutrient            string  `json:"Nutrient"`
-	NutrientContent     *int    `json:"NutrientContent"`
-	NutrientContentUnit *string `json:"NutrientContentUnit"`
+	Product             string   `json:"Product"`
+	BusinessPartner     int      `json:"BusinessPartner"`
+	Nutrient            string   `json:"Nutrient"`
+	NutrientContent     *float32 `json:"NutrientContent"`
+	NutrientContentUnit *string  `json:"NutrientContentUnit"`
 }
 
 type CaloriesUpdates struct {
-	Product            string  `json:"Product"`
-	BusinessPartner    int     `json:"BusinessPartner"`
-	CaloryUnitQuantity int     `json:"CaloryUnitQuantity"`
-	Calories           *int    `json:"Calories"`
-	CaloryUnit         *string `json:"CaloryUnit"`
+	Product            	string   `json:"Product"`
+	BusinessPartner    	int      `json:"BusinessPartner"`
+	Calories           	*float32 `json:"Calories"`
+	CaloryUnit         	*string  `json:"CaloryUnit"`
+	CaloryUnitQuantity 	*int     `json:"CaloryUnitQuantity"`
 }

@@ -1,10 +1,12 @@
 package requests
 
-type ProductDescByBP struct {
+type StorageBin struct {
 	Product             string  `json:"Product"`
 	BusinessPartner     int     `json:"BusinessPartner"`
-	Language            string  `json:"Language"`
-	ProductDescription  string  `json:"ProductDescription"`
+	Plant               string  `json:"Plant"`
+	StorageLocation     string  `json:"StorageLocation"`
+	StorageBin          string  `json:"StorageBin"`
+	BlockStatus         *bool   `json:"BlockStatus"`
 	CreationDate        string  `json:"CreationDate"`
 	LastChangeDate      string  `json:"LastChangeDate"`
 	IsMarkedForDeletion *bool   `json:"IsMarkedForDeletion"`

@@ -223,21 +223,21 @@ func ConvertToStorageBinCreates(sdc *dpfm_api_input_reader.SDC) (*[]StorageBin, 
 	return &storageBins, nil
 }
 
-func ConvertToWorkSchedulingCreates(sdc *dpfm_api_input_reader.SDC) (*[]WorkScheduling, error) {
-	workschedulings := make([]WorkScheduling, 0)
+func ConvertToProductionCreates(sdc *dpfm_api_input_reader.SDC) (*[]Production, error) {
+	productions := make([]Production, 0)
 
 	for _, bpPlant := range sdc.General.BPPlant {
-		for _, data := range bpPlant.WorkScheduling {
-			workscheduling, err := TypeConverter[*WorkScheduling](data)
+		for _, data := range bpPlant.Production {
+			production, err := TypeConverter[*Production](data)
 			if err != nil {
 				return nil, err
 			}
 
-			workschedulings = append(workschedulings, *workscheduling)
+			productions = append(productions, *production)
 		}
 	}
 
-	return &workschedulings, nil
+	return &productions, nil
 }
 
 func ConvertToTaxCreates(sdc *dpfm_api_input_reader.SDC) (*[]Tax, error) {
@@ -446,19 +446,19 @@ func ConvertToStorageBinUpdates(storageBinUpdates *[]dpfm_api_processing_formatt
 	return &storageBins, nil
 }
 
-func ConvertToWorkSchedulingUpdates(workschedulingUpdates *[]dpfm_api_processing_formatter.WorkSchedulingUpdates) (*[]WorkScheduling, error) {
-	workschedulings := make([]WorkScheduling, 0)
+func ConvertToProductionUpdates(productionUpdates *[]dpfm_api_processing_formatter.ProductionUpdates) (*[]Production, error) {
+	productions := make([]Production, 0)
 
-	for _, data := range *workschedulingUpdates {
-		workscheduling, err := TypeConverter[*WorkScheduling](data)
+	for _, data := range *productionUpdates {
+		production, err := TypeConverter[*Production](data)
 		if err != nil {
 			return nil, err
 		}
 
-		workschedulings = append(workschedulings, *workscheduling)
+		productions = append(productions, *production)
 	}
 
-	return &workschedulings, nil
+	return &productions, nil
 }
 
 func ConvertToTaxUpdates(taxUpdates *[]dpfm_api_processing_formatter.TaxUpdates) (*[]Tax, error) {
