@@ -85,6 +85,7 @@ type General struct {
 	SizeOrDimensionText           *string   `json:"SizeOrDimensionText"`
 	ProductStandardID             *string   `json:"ProductStandardID"`
 	IndustryStandardName          *string   `json:"IndustryStandardName"`
+	MarkingOfMaterial	          *string   `json:"MarkingOfMaterial"`
 	CountryOfOrigin               *string   `json:"CountryOfOrigin"`
 	CountryOfOriginLanguage       *string   `json:"CountryOfOriginLanguage"`
 	LocalRegionOfOrigin           *string   `json:"LocalRegionOfOrigin"`
@@ -220,12 +221,9 @@ type Quality struct {
 	Product                        string  `json:"Product"`
 	BusinessPartner                int     `json:"BusinessPartner"`
 	Plant                          string  `json:"Plant"`
-	MaximumStoragePeriod           *string `json:"MaximumStoragePeriod"`
 	QualityMgmtCtrlKey             *string `json:"QualityMgmtCtrlKey"`
-	MatlQualityAuthorizationGroup  *string `json:"MatlQualityAuthorizationGroup"`
-	HasPostToInspectionStock       *bool   `json:"HasPostToInspectionStock"`
-	InspLotDocumentationIsRequired *bool   `json:"InspLotDocumentationIsRequired"`
-	SuplrQualityManagementSystem   *string `json:"SuplrQualityManagementSystem"`
+	ProductSpecification		   *string `json:"ProductSpecification"`
+	MaximumStoragePeriodInDays     *int	   `json:"MaximumStoragePeriodInDays"`
 	RecrrgInspIntervalTimeInDays   *int    `json:"RecrrgInspIntervalTimeInDays"`
 	ProductQualityCertificateType  *string `json:"ProductQualityCertificateType"`
 	CreationDate                   *string `json:"CreationDate"`

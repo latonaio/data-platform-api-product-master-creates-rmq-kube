@@ -18,6 +18,7 @@ func ConvertToGeneralUpdates(general dpfm_api_input_reader.General) *GeneralUpda
 		SizeOrDimensionText:           data.SizeOrDimensionText,
 		ProductStandardID:             data.ProductStandardID,
 		IndustryStandardName:          data.IndustryStandardName,
+		MarkingOfMaterial:             data.MarkingOfMaterial,
 		BarcodeType:                   data.BarcodeType,
 		CountryOfOrigin:               data.CountryOfOrigin,
 		CountryOfOriginLanguage:       data.CountryOfOriginLanguage,
@@ -166,16 +167,12 @@ func ConvertToQualityUpdates(qualityUpdates dpfm_api_input_reader.Quality) *Qual
 		Product:						data.Product,
 		BusinessPartner:				data.BusinessPartner,
 		Plant:							data.Plant,
-		MaximumStoragePeriod:           data.MaximumStoragePeriod,
 		QualityMgmtCtrlKey:             data.QualityMgmtCtrlKey,
-		MatlQualityAuthorizationGroup:  data.MatlQualityAuthorizationGroup,
-		HasPostToInspectionStock:       data.HasPostToInspectionStock,
-		InspLotDocumentationIsRequired: data.InspLotDocumentationIsRequired,
-		SuplrQualityManagementSystem:   data.SuplrQualityManagementSystem,
+		ProductSpecification:			data.ProductSpecification,
+		MaximumStoragePeriodInDays:     data.MaximumStoragePeriodInDays,
 		RecrrgInspIntervalTimeInDays:   data.RecrrgInspIntervalTimeInDays,
 		ProductQualityCertificateType:  data.ProductQualityCertificateType,
 	}
-
 }
 
 func ConvertToAccountingUpdates(accountingUpdates dpfm_api_input_reader.Accounting) *AccountingUpdates {

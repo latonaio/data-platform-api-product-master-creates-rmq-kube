@@ -60,6 +60,7 @@ type General struct {
 	SizeOrDimensionText           *string  `json:"SizeOrDimensionText"`
 	ProductStandardID             *string  `json:"ProductStandardID"`
 	IndustryStandardName          *string  `json:"IndustryStandardName"`
+	MarkingOfMaterial	          *string  `json:"MarkingOfMaterial"`
 	CountryOfOrigin               *string  `json:"CountryOfOrigin"`
 	CountryOfOriginLanguage       *string  `json:"CountryOfOriginLanguage"`
 	LocalRegionOfOrigin           *string  `json:"LocalRegionOfOrigin"`
@@ -220,16 +221,13 @@ type Quality struct {
 	Product                        string  `json:"Product"`
 	BusinessPartner                int     `json:"BusinessPartner"`
 	Plant                          string  `json:"Plant"`
-	MaximumStoragePeriod           *string `json:"MaximumStoragePeriod"`
 	QualityMgmtCtrlKey             *string `json:"QualityMgmtCtrlKey"`
-	MatlQualityAuthorizationGroup  *string `json:"MatlQualityAuthorizationGroup"`
-	HasPostToInspectionStock       *bool   `json:"HasPostToInspectionStock"`
-	InspLotDocumentationIsRequired *bool   `json:"InspLotDocumentationIsRequired"`
-	SuplrQualityManagementSystem   *string `json:"SuplrQualityManagementSystem"`
+	ProductSpecification		   *string `json:"ProductSpecification"`
+	MaximumStoragePeriodInDays     *int	   `json:"MaximumStoragePeriodInDays"`
 	RecrrgInspIntervalTimeInDays   *int    `json:"RecrrgInspIntervalTimeInDays"`
 	ProductQualityCertificateType  *string `json:"ProductQualityCertificateType"`
-	CreationDate                   *string `json:"CreationDate"`
-	LastChangeDate                 *string `json:"LastChangeDate"`
+	CreationDate                   string  `json:"CreationDate"`
+	LastChangeDate                 string  `json:"LastChangeDate"`
 	IsMarkedForDeletion            *bool   `json:"IsMarkedForDeletion"`
 }
 
@@ -261,9 +259,9 @@ type Tax struct {
 	Country                  string  `json:"Country"`
 	ProductTaxCategory       string  `json:"ProductTaxCategory"`
 	ProductTaxClassification *string `json:"ProductTaxClassification"`
-	CreationDate             *string  `json:"CreationDate"`
-	LastChangeDate           *string  `json:"LastChangeDate"`
-	IsMarkedForDeletion      *bool    `json:"IsMarkedForDeletion"`
+	CreationDate             string  `json:"CreationDate"`
+	LastChangeDate           string  `json:"LastChangeDate"`
+	IsMarkedForDeletion      *bool   `json:"IsMarkedForDeletion"`
 }
 
 type Accounting struct {
@@ -281,24 +279,24 @@ type Accounting struct {
 }
 
 type Allergen struct {
-	Product             string `json:"Product"`
-	BusinessPartner     int    `json:"BusinessPartner"`
-	Allergen            string `json:"Allergen"`
-	AllergenIsContained *bool  `json:"AllergenIsContained"`
-	CreationDate        *string  `json:"CreationDate"`
-	LastChangeDate      *string  `json:"LastChangeDate"`
-	IsMarkedForDeletion *bool  `json:"IsMarkedForDeletion"`
+	Product             string  `json:"Product"`
+	BusinessPartner     int     `json:"BusinessPartner"`
+	Allergen            string  `json:"Allergen"`
+	AllergenIsContained *bool   `json:"AllergenIsContained"`
+	CreationDate        string  `json:"CreationDate"`
+	LastChangeDate      string  `json:"LastChangeDate"`
+	IsMarkedForDeletion *bool   `json:"IsMarkedForDeletion"`
 }
 
 type Calories struct {
-	Product            	string   `json:"Product"`
-	BusinessPartner    	int      `json:"BusinessPartner"`
-	Calories           	*float32 `json:"Calories"`
-	CaloryUnit         	*string  `json:"CaloryUnit"`
-	CaloryUnitQuantity 	*int     `json:"CaloryUnitQuantity"`
-	CreationDate       	*string  `json:"CreationDate"`
-	LastChangeDate     	*string  `json:"LastChangeDate"`
-	IsMarkedForDeletion	*bool    `json:"IsMarkedForDeletion"`
+	Product             string   `json:"Product"`
+	BusinessPartner     int      `json:"BusinessPartner"`
+	Calories            *float32 `json:"Calories"`
+	CaloryUnit          *string  `json:"CaloryUnit"`
+	CaloryUnitQuantity  *int     `json:"CaloryUnitQuantity"`
+	CreationDate        string   `json:"CreationDate"`
+	LastChangeDate      string   `json:"LastChangeDate"`
+	IsMarkedForDeletion *bool    `json:"IsMarkedForDeletion"`
 }
 
 type NutritionalInfo struct {
@@ -307,7 +305,7 @@ type NutritionalInfo struct {
 	Nutrient            string   `json:"Nutrient"`
 	NutrientContent     *float32 `json:"NutrientContent"`
 	NutrientContentUnit *string  `json:"NutrientContentUnit"`
-	CreationDate        *string  `json:"CreationDate"`
-	LastChangeDate      *string  `json:"LastChangeDate"`
+	CreationDate        string   `json:"CreationDate"`
+	LastChangeDate      string   `json:"LastChangeDate"`
 	IsMarkedForDeletion *bool    `json:"IsMarkedForDeletion"`
 }

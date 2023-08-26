@@ -135,12 +135,9 @@ type QualityUpdates struct {
 	Product                        string  `json:"Product"`
 	BusinessPartner                int     `json:"BusinessPartner"`
 	Plant                          string  `json:"Plant"`
-	MaximumStoragePeriod           *string `json:"MaximumStoragePeriod"`
 	QualityMgmtCtrlKey             *string `json:"QualityMgmtCtrlKey"`
-	MatlQualityAuthorizationGroup  *string `json:"MatlQualityAuthorizationGroup"`
-	HasPostToInspectionStock       *bool   `json:"HasPostToInspectionStock"`
-	InspLotDocumentationIsRequired *bool   `json:"InspLotDocumentationIsRequired"`
-	SuplrQualityManagementSystem   *string `json:"SuplrQualityManagementSystem"`
+	ProductSpecification		   *string `json:"ProductSpecification"`
+	MaximumStoragePeriodInDays     *int	   `json:"MaximumStoragePeriodInDays"`
 	RecrrgInspIntervalTimeInDays   *int    `json:"RecrrgInspIntervalTimeInDays"`
 	ProductQualityCertificateType  *string `json:"ProductQualityCertificateType"`
 }
