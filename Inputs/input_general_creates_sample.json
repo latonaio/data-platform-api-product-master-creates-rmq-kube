@@ -148,8 +148,9 @@
 						],
 						"Production": {
 							"ProductionStorageLocation": "",
-							"ProductProcessingDuration": null,
-							"ProductProductionQuantityUnit": "",
+							"ProductionDuration": null,
+							"ProductionDurationUnit": "",
+							"ProductionQuantityUnit": "",
 							"MinimumProductionQuantityInBaseUnit": null,
 							"MinimumProductionLotSizeQuantityInBaseUnit": null,
 							"StandardProductionQuantityInBaseUnit": null,

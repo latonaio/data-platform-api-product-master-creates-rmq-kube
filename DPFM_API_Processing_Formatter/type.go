@@ -102,8 +102,9 @@ type ProductionUpdates struct {
 	BusinessPartner										int			`json:"BusinessPartner"`
 	Plant												string		`json:"Plant"`
 	ProductionStorageLocation							string		`json:"ProductionStorageLocation"`
-	ProductProcessingDuration							float32		`json:"ProductProcessingDuration"`
-	ProductProductionQuantityUnit						string		`json:"ProductProductionQuantityUnit"`
+	ProductionDuration                         		    float32	    `json:"ProductionDuration"`
+	ProductionDurationUnit                     		    string   	`json:"ProductionDurationUnit"`
+	ProductionQuantityUnit                     		    string   	`json:"ProductionQuantityUnit"`
 	MinimumProductionQuantityInBaseUnit					float32		`json:"MinimumProductionQuantityInBaseUnit"`
 	MinimumProductionLotSizeQuantityInBaseUnit			float32		`json:"MinimumProductionLotSizeQuantityInBaseUnit"`
 	StandardProductionQuantityInBaseUnit				float32		`json:"StandardProductionQuantityInBaseUnit"`
